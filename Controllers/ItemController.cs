@@ -27,14 +27,14 @@ namespace ItemsStore.Controllers
             });
             app.MapDelete("/api/item/{id}", async (Db db, int id) =>
             {
-            var item = await db.Items.FindAsync(id);
-            if (item is null)
-            {
-                return Results.NotFound();
-            }
-            db.Items.Remove(item);
-            await db.SaveChangesAsync();
-            return Results.Ok();
+                var item = await db.Items.FindAsync(id);
+                if (item is null)
+                {
+                    return Results.NotFound();
+                }
+                db.Items.Remove(item);
+                await db.SaveChangesAsync();
+                return Results.Ok();
             });
         }
     }
