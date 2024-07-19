@@ -1,8 +1,7 @@
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using ItemsStore.Models;
-
-// DB 
+using ItemsStore.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("Items") ?? "Data Source=Items.db";
@@ -15,10 +14,6 @@ builder.Services.AddSqlite<Db>(connectionString);
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
     });
 
-    // Add API tests
-    builder.Services.AddHttpClient();
-    builder.Services.AddMvc().AddApplicationPart(typeof(ApiTests).Assembly);
-
 var app = builder.Build();
 
 	if (app.Environment.IsDevelopment())
@@ -27,37 +22,7 @@ var app = builder.Build();
 		app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
 	} 
 
-app.MapGet("/api/items", async (Db db) => await db.Items.ToListAsync());
-app.MapGet("/api/item/{id}", async (Db db, int id) => await db.Items.FindAsync(id));    
 
-app.MapPost("/api/item", async (Db db, Item item) =>
-{
-    await db.Items.AddAsync(item);
-    await db.SaveChangesAsync();
-    return Results.Created($"/item/{item.Id}", item);
-});
-
-app.MapPut("/api/item/{id}", async (Db db, Item updateitem, int id) =>
-{
-      var item = await db.Items.FindAsync(id);
-      if (item is null) return Results.NotFound();
-      item.ItemName = updateitem.ItemName;
-      item.ItemValue = updateitem.ItemValue;
-      await db.SaveChangesAsync();
-      return Results.NoContent();
-});
-
-app.MapDelete("/api/item/{id}", async (Db db, int id) =>
-{
-   var item = await db.Items.FindAsync(id);
-   if (item is null)
-   {
-      return Results.NotFound();
-   }
-   db.Items.Remove(item);
-   await db.SaveChangesAsync();
-   return Results.Ok();
-});
-
-app.Urls.Add("http://localhost:5100");
+app.MapItemsEndpoints(); // Registra los endpoints de ItemsController
+app.Urls.Add("http://localhost:5100"); // Inicia en puerto 5000
 app.Run();
