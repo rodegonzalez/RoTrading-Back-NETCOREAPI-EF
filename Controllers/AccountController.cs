@@ -10,23 +10,23 @@ namespace GeneralStore.Controllers
         public static void MapAccountsEndpoints(this WebApplication app)
         {
             app.MapGet("/api/accounts", async (Db db) => await db.Accounts
-                                                                .Where(a => a.deleted == 0 && a.active == 1)
+                                                                .Where(a => a.Deleted == 0)
                                                                 .ToListAsync());
 
             app.MapGet("/api/account/{id}", async (Db db, int id) => await db.Accounts
-                                                                            .Where(a => a.Idaccount == id && a.deleted == 0 && a.active == 1)
+                                                                            .Where(a => a.Id == id && a.Deleted == 0)
                                                                             .FirstOrDefaultAsync());    
 
             app.MapPost("/api/account", async (Db db, Account account) =>
             {
                 await db.Accounts.AddAsync(account);
                 await db.SaveChangesAsync();
-                return Results.Created($"/account/{account.Idaccount}", account);
+                return Results.Created($"/account/{account.Id}", account);
             });
             app.MapPut("/api/account/{id}", async (Db db, Account updateaccount, int id) =>
             {
                 var account = await db.Accounts
-                                            .Where(a => a.Idaccount == id && a.deleted == 0 && a.active == 1)
+                                            .Where(a => a.Id == id && a.Deleted == 0)
                                             .FirstOrDefaultAsync();
                 if (account is null) return Results.NotFound();
 
@@ -38,7 +38,7 @@ namespace GeneralStore.Controllers
             app.MapDelete("/api/account/{id}", async (Db db, int id) =>
             {
                 var item = await db.Accounts
-                                    .Where(a => a.Idaccount == id && a.deleted == 0 && a.active == 1)
+                                    .Where(a => a.Id == id && a.Deleted == 0)
                                     .FirstOrDefaultAsync();
                 if (item is null)
                 {
