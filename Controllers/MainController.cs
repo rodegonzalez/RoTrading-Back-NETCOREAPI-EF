@@ -9,6 +9,7 @@ namespace GeneralStore.Controllers
         public static void MapAllEndpoints(this WebApplication app)
         {
            app.MapItemsEndpoints();
+           app.MapAccountsEndpoints();
         }
     }
 }

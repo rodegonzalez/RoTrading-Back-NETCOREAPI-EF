@@ -6,7 +6,7 @@ using GeneralStore.Interfaces;
 using GeneralStore.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("Items") ?? "Data Source=Items.db";
+var connectionString = builder.Configuration.GetConnectionString("rotrading") ?? "Data Source=rotest.db";
 builder.Services.AddSqlite<Db>(connectionString);
 
     builder.Services.AddEndpointsApiExplorer();

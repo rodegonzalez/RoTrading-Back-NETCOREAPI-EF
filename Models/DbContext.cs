@@ -6,5 +6,6 @@ namespace GeneralStore.Models
     {
         public Db(DbContextOptions options) : base(options) { }
         public DbSet<Item> Items { get; set; } = null!;
+        public DbSet<Account> Accounts { get; set; } = null!;
     }
 }
