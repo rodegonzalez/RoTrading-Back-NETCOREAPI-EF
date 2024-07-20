@@ -17,10 +17,10 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowSpecificOrigin", // Nombre de la política
+    options.AddPolicy("AllowSpecificOrigin_localhost", // Nombre de la política
         builder =>
         {
-            builder.WithOrigins("http://localhost:4200") // Especifica los orígenes permitidos
+           builder.SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost")
                    .AllowAnyMethod() // Permite cualquier método (GET, POST, etc.)
                    .AllowAnyHeader(); // Permite cualquier encabezado
         });
@@ -34,7 +34,7 @@ if (app.Environment.IsDevelopment())
 	app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
 } 
 
-app.UseCors("AllowSpecificOrigin"); // Usa la política de CORS definida anteriormente
+app.UseCors("AllowSpecificOrigin_localhost"); // Usa la política de CORS definida anteriormente
 
 //builder.Services.AddScoped<IItemRepository, ItemRepository>(); // Registra el servicio de ItemsRepository
 app.MapAllEndpoints(); // Registra los endpoints de ItemsController

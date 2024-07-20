@@ -11,6 +11,12 @@ namespace GeneralStore.Controllers
             app.MapGet("/api/positions", async (Db db) => await db.Positions
                                                                 .Where(a => a.Deleted == 0)
                                                                 .ToListAsync());
+            app.MapGet("/api/positions/opened", async (Db db) => await db.Positions
+                                                                .Where(a => a.Deleted == 0 && a.Status == "opened")
+                                                                .ToListAsync());
+            app.MapGet("/api/positions/notopened", async (Db db) => await db.Positions
+                                                                .Where(a => a.Deleted == 0 && a.Status != "opened")
+                                                                .ToListAsync());
 
             app.MapGet("/api/position/{id}", async (Db db, int id) => await db.Positions
                                                                             .Where(a => a.Id == id && a.Deleted == 0)
