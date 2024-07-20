@@ -17,13 +17,13 @@ namespace GeneralStore.Controllers
                                                                             .Where(a => a.Id == id && a.Deleted == 0)
                                                                             .FirstOrDefaultAsync());    
 
-            app.MapPost("/api/account", async (Db db, Account account) =>
+            app.MapPost("/api/account", async (Db db, Account record) =>
             {
-                await db.Accounts.AddAsync(account);
+                await db.Accounts.AddAsync(record);
                 await db.SaveChangesAsync();
-                return Results.Created($"/account/{account.Id}", account);
+                return Results.Created($"/record/{record.Id}", record);
             });
-            app.MapPut("/api/account/{id}", async (Db db, Account updateaccount, int id) =>
+            app.MapPut("/api/account/{id}", async (Db db, Account updaterecord, int id) =>
             {
                 var account = await db.Accounts
                                             .Where(a => a.Id == id && a.Deleted == 0)
@@ -37,10 +37,10 @@ namespace GeneralStore.Controllers
             });
             app.MapDelete("/api/account/{id}", async (Db db, int id) =>
             {
-                var item = await db.Accounts
+                var record = await db.Accounts
                                     .Where(a => a.Id == id && a.Deleted == 0)
                                     .FirstOrDefaultAsync();
-                if (item is null)
+                if (record is null)
                 {
                     return Results.NotFound();
                 }
