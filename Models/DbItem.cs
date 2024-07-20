@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace ItemsStore.Models 
+namespace GeneralStore.Models 
 {
     public class Item
     {

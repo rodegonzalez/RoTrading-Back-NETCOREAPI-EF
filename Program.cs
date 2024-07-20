@@ -1,7 +1,7 @@
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
-using ItemsStore.Models;
-using ItemsStore.Controllers;
+using GeneralStore.Models;
+using GeneralStore.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("Items") ?? "Data Source=Items.db";
@@ -23,6 +23,6 @@ var app = builder.Build();
 	} 
 
 
-app.MapItemsEndpoints(); // Registra los endpoints de ItemsController
+app.MapAllEndpoints(); // Registra los endpoints de ItemsController
 app.Urls.Add("http://localhost:5100"); // Inicia en puerto 5000
 app.Run();

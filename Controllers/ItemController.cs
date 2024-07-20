@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using ItemsStore.Models;
+using GeneralStore.Models;
 
-namespace ItemsStore.Controllers
+namespace GeneralStore.Controllers
 {
     public static class ItemsController
     {
