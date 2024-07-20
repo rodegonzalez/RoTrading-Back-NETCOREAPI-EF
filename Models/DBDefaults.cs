@@ -9,7 +9,7 @@ namespace GeneralStore.Models
         public int? Deleted { get; set; }
         public string? Note { get; set; }
     }
-        public class Diarie
+    public class Diary
     {
         public int Id { get; set; }        
         public string? Creation { get; set; }
@@ -18,7 +18,7 @@ namespace GeneralStore.Models
         public int? Deleted { get; set; }
         public string? Note { get; set; }
     }
-        public class Divisa
+    public class Divisa
     {
         public int Id { get; set; }        
         public string? Creation { get; set; }
@@ -27,7 +27,7 @@ namespace GeneralStore.Models
         public int? Deleted { get; set; }
         public string? Note { get; set; }
     }
-        public class Positions_pattern 
+    public class Positions_pattern 
     {
         public int Id { get; set; }        
         public string? Creation { get; set; }
@@ -36,7 +36,7 @@ namespace GeneralStore.Models
         public int? Deleted { get; set; }
         public string? Note { get; set; }
     }
-        public class Position_setup
+    public class Position_setup
     {
         public int Id { get; set; }        
         public string? Creation { get; set; }
@@ -45,7 +45,7 @@ namespace GeneralStore.Models
         public int? Deleted { get; set; }
         public string? Note { get; set; }
     }
-        public class Ticker
+    public class Ticker
     {
         public int Id { get; set; }        
         public string? Creation { get; set; }
@@ -54,7 +54,7 @@ namespace GeneralStore.Models
         public int? Deleted { get; set; }
         public string? Note { get; set; }
     }
-        public class Tpp
+    public class Tpp
     {
         public int Id { get; set; }        
         public string? Creation { get; set; }

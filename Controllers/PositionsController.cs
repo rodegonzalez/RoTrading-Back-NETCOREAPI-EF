@@ -4,39 +4,39 @@ using  GeneralStore.Repositories;
 
 namespace GeneralStore.Controllers
 {
-    public static class AccountController
+    public static class PositionController
     {
-        public static void MapEndpoints_Accounts(this WebApplication app)
+        public static void MapEndpoints_Positions(this WebApplication app)
         {
-            app.MapGet("/api/accounts", async (Db db) => await db.Accounts
+            app.MapGet("/api/positions", async (Db db) => await db.Positions
                                                                 .Where(a => a.Deleted == 0)
                                                                 .ToListAsync());
 
-            app.MapGet("/api/account/{id}", async (Db db, int id) => await db.Accounts
+            app.MapGet("/api/position/{id}", async (Db db, int id) => await db.Positions
                                                                             .Where(a => a.Id == id && a.Deleted == 0)
                                                                             .FirstOrDefaultAsync());    
 
-            app.MapPost("/api/account", async (Db db, Account record) =>
+            app.MapPost("/api/position", async (Db db, Position record) =>
             {
-                await db.Accounts.AddAsync(record);
+                await db.Positions.AddAsync(record);
                 await db.SaveChangesAsync();
                 return Results.Created($"/record/{record.Id}", record);
             });
-            app.MapPut("/api/account/{id}", async (Db db, Account updaterecord, int id) =>
+            app.MapPut("/api/position/{id}", async (Db db, Position updaterecord, int id) =>
             {
-                var account = await db.Accounts
+                var record = await db.Positions
                                             .Where(a => a.Id == id && a.Deleted == 0)
                                             .FirstOrDefaultAsync();
-                if (account is null) return Results.NotFound();
+                if (record is null) return Results.NotFound();
 
-                //account.Modification = "xx-xx-xxxx";
+                //record.Modification = "xx-xx-xxxx";
                 
                 await db.SaveChangesAsync();
                 return Results.NoContent();
             });
-            app.MapDelete("/api/account/{id}", async (Db db, int id) =>
+            app.MapDelete("/api/position/{id}", async (Db db, int id) =>
             {
-                var record = await db.Accounts
+                var record = await db.Positions
                                     .Where(a => a.Id == id && a.Deleted == 0)
                                     .FirstOrDefaultAsync();
                 if (record is null)

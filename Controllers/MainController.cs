@@ -1,6 +1,5 @@
 using GeneralStore.Controllers;
 using GeneralStore.Interfaces;
-using GeneralStore.Repositories;
 
 namespace GeneralStore.Controllers
 {
@@ -9,7 +8,8 @@ namespace GeneralStore.Controllers
         public static void MapAllEndpoints(this WebApplication app)
         {
            app.MapItemsEndpoints();
-           app.MapAccountsEndpoints();
+           app.MapEndpoints_Accounts();
+           app.MapEndpoints_Positions();
         }
     }
 }

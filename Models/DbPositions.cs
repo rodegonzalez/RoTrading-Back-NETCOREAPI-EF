@@ -26,7 +26,7 @@ namespace GeneralStore.Models
         public string? Status { get; set; }
         public int? PatternId { get; set; }
         public int? SetupId { get; set; }
-        public int? TickrId { get; set; }
+        public int? TickerId { get; set; }
         public int? Processed { get; set; }
     }
 }
