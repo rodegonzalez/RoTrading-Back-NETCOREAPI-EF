@@ -1,4 +1,6 @@
 using GeneralStore.Controllers;
+using GeneralStore.Interfaces;
+using GeneralStore.Repositories;
 
 namespace GeneralStore.Controllers
 {

@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using GeneralStore.Models;
+using  GeneralStore.Repositories;
+using GeneralStore.Interfaces;
 
 namespace GeneralStore.Controllers
 {
@@ -8,6 +10,8 @@ namespace GeneralStore.Controllers
         public static void MapItemsEndpoints(this WebApplication app)
         {
             app.MapGet("/api/items", async (Db db) => await db.Items.ToListAsync());
+            // app.MapGet("/api/items", async () => await GetAllItemsAsync());
+
             app.MapGet("/api/item/{id}", async (Db db, int id) => await db.Items.FindAsync(id));    
 
             app.MapPost("/api/item", async (Db db, Item item) =>
