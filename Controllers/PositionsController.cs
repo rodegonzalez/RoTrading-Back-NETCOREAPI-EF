@@ -7,17 +7,19 @@ namespace GeneralStore.Controllers
     {
         public static void MapEndpoints_Positions(this WebApplication app)
         {
-            app.MapGet("/api/positions", async (Db db) => await db.Positions
+            app.MapGet("/api/positions", async (Db db) => await db.PositionViews
                                                                 .Where(a => a.Deleted == 0)
+                                                                .Take(100)
                                                                 .ToListAsync());
-            app.MapGet("/api/positions/opened", async (Db db) => await db.Positions
+            app.MapGet("/api/positions/opened", async (Db db) => await db.PositionViews
                                                                 .Where(a => a.Deleted == 0 && a.Status == "opened")
                                                                 .ToListAsync());
-            app.MapGet("/api/positions/notopened", async (Db db) => await db.Positions
+            app.MapGet("/api/positions/notopened", async (Db db) => await db.PositionViews
                                                                 .Where(a => a.Deleted == 0 && a.Status != "opened")
+                                                                .Take(10)
                                                                 .ToListAsync());
 
-            app.MapGet("/api/position/{id}", async (Db db, int id) => await db.Positions
+            app.MapGet("/api/position/{id}", async (Db db, int id) => await db.PositionViews
                                                                             .Where(a => a.Id == id && a.Deleted == 0)
                                                                             .FirstOrDefaultAsync());    
 
