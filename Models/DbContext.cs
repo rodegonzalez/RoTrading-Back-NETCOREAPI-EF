@@ -1,4 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using System;
+using System.Data.Common;
 
 namespace GeneralStore.Models 
 {
@@ -21,5 +24,29 @@ namespace GeneralStore.Models
         {
             modelBuilder.Entity<PositionView>().HasNoKey().ToView("view_positions");
         }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole()))
+                          .EnableSensitiveDataLogging()
+                          .UseSqlite("Data Source=rotrading.db");
+        }
+
     }
+
+    public class MiInterceptorDeConsultas : DbCommandInterceptor
+    {
+        public override InterceptionResult<DbDataReader> ReaderExecuting(
+            DbCommand command,
+            CommandEventData eventData,
+            InterceptionResult<DbDataReader> result)
+        {
+            Console.WriteLine("###########");
+            Console.WriteLine($"##############  Consulta SQL: {command.CommandText}");
+            Console.WriteLine("###########");
+
+            return base.ReaderExecuting(command, eventData, result);
+        }
+    }
+
 }

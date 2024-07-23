@@ -24,7 +24,7 @@ namespace GeneralStore.Controllers
                                                                             .FirstOrDefaultAsync());    
 
             app.MapPost("/api/position", async (Db db, Position record) =>
-            {
+            {                
                 await db.Positions.AddAsync(record);
                 await db.SaveChangesAsync();
                 return Results.Created($"/record/{record.Id}", record);

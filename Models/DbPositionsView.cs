@@ -3,7 +3,7 @@ namespace GeneralStore.Models
     public class PositionView
     {
         public int Id { get; set; }
-        public string Block { get; set; }
+        public string? Block { get; set; }
         public string? Creation { get; set; }
         public string? Modification { get; set; }
         public int? Active { get; set; }
@@ -26,12 +26,18 @@ namespace GeneralStore.Models
         public int? Divisaid { get; set; }
         public int? Accountid { get; set; }
         public int? Marketid { get; set; }
+        public int? Tppid { get; set; }
         public string? Status { get; set; }
         public int? Patternid { get; set; }
-        public int? tppCheck { get; set; }  // 1- en tpp, 0- no tpp
         public int? Setupid { get; set; }
         public int? Tickerid { get; set; }
+
+        public int? Tppcheck { get; set; }  // 1- en tpp, 0- no tpp
+        public int? Isrealcheck { get; set; }  // 1- real, 0- training account
+
         public int? Processed { get; set; }
+        public string? Acctype { get; set; }
+        public string? Temporal { get; set; }
 
         public string? Divisa { get; set; }
         public string? Account { get; set; }
@@ -41,6 +47,7 @@ namespace GeneralStore.Models
         public string? Setup { get; set; }
         public string? Ticker { get; set; }
         public string? Broker { get; set; }
+
 
     }
 }
