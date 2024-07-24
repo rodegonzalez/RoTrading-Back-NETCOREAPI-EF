@@ -3,8 +3,7 @@ using GeneralStore.Models;
 
 namespace GeneralStore.Controllers
 {
-    public static class PositionController
-    {
+    public static class PositionController { 
         public static void MapEndpoints_Positions(this WebApplication app)
         {
             app.MapGet("/api/positions", async (Db db) => await db.PositionViews
@@ -21,10 +20,11 @@ namespace GeneralStore.Controllers
 
             app.MapGet("/api/position/{id}", async (Db db, int id) => await db.PositionViews
                                                                             .Where(a => a.Id == id && a.Deleted == 0)
-                                                                            .FirstOrDefaultAsync());    
+                                                                            .FirstOrDefaultAsync());
 
             app.MapPost("/api/position", async (Db db, Position record) =>
-            {                
+            {
+                record.Modification = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
                 await db.Positions.AddAsync(record);
                 await db.SaveChangesAsync();
                 return Results.Created($"/record/{record.Id}", record);
@@ -36,8 +36,7 @@ namespace GeneralStore.Controllers
                                             .FirstOrDefaultAsync();
                 if (record is null) return Results.NotFound();
 
-                //record.Modification = "xx-xx-xxxx";
-                
+                record.Modification = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
                 await db.SaveChangesAsync();
                 return Results.NoContent();
             });
@@ -50,10 +49,11 @@ namespace GeneralStore.Controllers
                 {
                     return Results.NotFound();
                 }
-                //db.Items.Remove(item);
+                record.Deleted = 1;
+                record.Modification = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
                 await db.SaveChangesAsync();
                 return Results.Ok();
             });
         }
-    }
+}
 }

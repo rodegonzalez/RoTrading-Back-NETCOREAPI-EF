@@ -1,53 +1,48 @@
 using Microsoft.EntityFrameworkCore;
 using GeneralStore.Models;
-using  GeneralStore.Repositories;
 
 namespace GeneralStore.Controllers
 {
-    public static class AccountController
+    public static class BrokerController
     {
-        public static void MapEndpoints_Accounts(this WebApplication app)
+        public static void MapEndpoints_Brokers(this WebApplication app)
         {
-            app.MapGet("/api/accounts", async (Db db) => await db.Accounts
+            app.MapGet("/api/brokers", async (Db db) => await db.Brokers
                                                                 .Where(a => a.Deleted == 0)
-                                                                .ToListAsync());
+                                                                .Take(100)
+                                                                .ToListAsync());            
 
-            app.MapGet("/api/account/{id}", async (Db db, int id) => await db.Accounts
+            app.MapGet("/api/broker/{id}", async (Db db, int id) => await db.Brokers
                                                                             .Where(a => a.Id == id && a.Deleted == 0)
                                                                             .FirstOrDefaultAsync());    
 
-            app.MapPost("/api/account", async (Db db, Account record) =>
+            app.MapPost("/api/broker", async (Db db, Broker record) =>
             {
                 record.Modification = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
-                await db.Accounts.AddAsync(record);
+                await db.Brokers.AddAsync(record);
                 await db.SaveChangesAsync();
                 return Results.Created($"/record/{record.Id}", record);
             });
-            app.MapPut("/api/account/{id}", async (Db db, Account updaterecord, int id) =>
+            app.MapPut("/api/broker/{id}", async (Db db, Broker updaterecord, int id) =>
             {
-                var record = await db.Accounts
+                var record = await db.Brokers
                                             .Where(a => a.Id == id && a.Deleted == 0)
                                             .FirstOrDefaultAsync();
                 if (record is null) return Results.NotFound();
 
                 record.Name = updaterecord.Name;
-                record.Description = updaterecord.Description;
+                record.Description = updaterecord.Description;  
                 record.Status = updaterecord.Status;
-                record.Active = updaterecord.Active;
+                record.Active = updaterecord.Active;                
                 record.Note = updaterecord.Note;
-                record.Modification = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
-                record.Amount_initial = updaterecord.Amount_initial;
-                record.Amount_current = updaterecord.Amount_current;
-                record.Brokerid = updaterecord.Brokerid;
-                record.Divisaid = updaterecord.Divisaid;
-                record.Acctype = updaterecord.Acctype;
 
+                record.Modification = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
                 await db.SaveChangesAsync();
                 return Results.NoContent();
             });
-            app.MapDelete("/api/account/{id}", async (Db db, int id) =>
+            app.MapDelete("/api/broker/{id}", async (Db db, int id) =>
             {
-                var record = await db.Accounts
+                var record = await db.Brokers
                                     .Where(a => a.Id == id && a.Deleted == 0)
                                     .FirstOrDefaultAsync();
                 if (record is null)
@@ -56,6 +51,7 @@ namespace GeneralStore.Controllers
                 }
                 record.Deleted = 1;
                 record.Modification = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
+                record.Name = $"{record.Name}_[{record.Id}_{record.Modification}]_Deleted";                
                 await db.SaveChangesAsync();
                 return Results.Ok();
             });

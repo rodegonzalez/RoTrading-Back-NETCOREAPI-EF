@@ -10,6 +10,7 @@ namespace GeneralStore.Controllers
            app.MapItemsEndpoints();
            app.MapEndpoints_Accounts();
            app.MapEndpoints_Positions();
+           app.MapEndpoints_Brokers();
         }
     }
 }
