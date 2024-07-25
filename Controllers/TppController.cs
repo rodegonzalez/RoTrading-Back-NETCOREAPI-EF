@@ -21,8 +21,8 @@ namespace GeneralStore.Controllers
 
             app.MapPost("/api/tpp", async (Db db, Tpp record) =>
             {
-                record.Creation = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
-                record.Modification = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
+                record.Creation = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                record.Modification = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                 record.Active = 1;
                 record.Deleted = 0;
                 await db.Tpps.AddAsync(record);
@@ -42,7 +42,7 @@ namespace GeneralStore.Controllers
                 record.Active = updaterecord.Active;                
                 record.Note = updaterecord.Note;
 
-                record.Modification = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
+                record.Modification = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                 await db.SaveChangesAsync();
                 return Results.NoContent();
             });
@@ -56,7 +56,7 @@ namespace GeneralStore.Controllers
                     return Results.NotFound();
                 }
                 record.Deleted = 1;
-                record.Modification = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
+                record.Modification = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                 record.Name = $"{record.Name}_[{record.Id}_{record.Modification}]_Deleted";                
                 await db.SaveChangesAsync();
                 return Results.Ok();
