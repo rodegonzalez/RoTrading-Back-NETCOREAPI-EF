@@ -15,7 +15,7 @@ namespace GeneralStore.Models
         public DbSet<Broker> Brokers { get; set; } = null!;
         public DbSet<Diary> Diaries { get; set; } = null!;
         public DbSet<Divisa> Divisas { get; set; } = null!;
-        public DbSet<Positions_pattern> Positions_patterns { get; set; } = null!;
+        public DbSet<Position_pattern> Position_patterns { get; set; } = null!;
         public DbSet<Position_setup> Position_setups { get; set; } = null!;
         public DbSet<Ticker> Tickers { get; set; } = null!;
         public DbSet<Tpp> Tpps { get; set; } = null!;

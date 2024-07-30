@@ -47,7 +47,7 @@ namespace GeneralStore.Models
         public int? Deleted { get; set; }
         public string? Note { get; set; }
     }
-    public class Positions_pattern 
+    public class Position_pattern 
     {
         public int Id { get; set; }        
         public string? Creation { get; set; }

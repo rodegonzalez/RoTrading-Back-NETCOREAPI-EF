@@ -12,6 +12,8 @@ namespace GeneralStore.Controllers
            app.MapEndpoints_Positions();
            app.MapEndpoints_Brokers();
            app.MapEndpoints_Tpps();
+           app.MapEndpoints_PositionSetups();
+           app.MapEndpoints_PositionPatterns();
         }
     }
 }
