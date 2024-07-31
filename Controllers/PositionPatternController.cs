@@ -9,7 +9,16 @@ namespace GeneralStore.Controllers
         {
             app.MapGet("/api/position_patterns", async (Db db) => await db.Position_patterns
                                                                 .Where(a => a.Deleted == 0 && a.Active == 1)
-                                                                .ToListAsync());                    
+                                                                .ToListAsync());
+
+            // High Patterns
+            app.MapGet("/api/position_highpatterns", async (Db db) => await db.Position_highpatterns
+                                                                .Where(a => a.Deleted == 0 && a.Active == 1)
+                                                                .ToListAsync());
+
         }
+
     }
+
+
 }
