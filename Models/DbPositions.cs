@@ -37,5 +37,9 @@ namespace GeneralStore.Models
 
         public int? Processed { get; set; }
         public string? Temporal { get; set; }
+
+        public string? Pattern { get; set; }
+        public string? Setup { get; set; }
+
     }
 }

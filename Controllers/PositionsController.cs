@@ -24,6 +24,8 @@ namespace GeneralStore.Controllers
 
             app.MapPost("/api/position", async (Db db, Position record) =>
             {
+                Console.WriteLine("Record: " + record);
+
                 record.Modification = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
                 await db.Positions.AddAsync(record);
                 await db.SaveChangesAsync();
