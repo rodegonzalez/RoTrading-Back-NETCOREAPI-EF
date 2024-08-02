@@ -29,7 +29,7 @@ namespace GeneralStore.Controllers
                 await db.SaveChangesAsync();
                 return Results.Created($"/record/{record.Id}", record);
             });
-            app.MapPut("/api/tpp/{id}", async (Db db, Broker updaterecord, int id) =>
+            app.MapPut("/api/tpp/{id}", async (Db db, Tpp updaterecord, int id) =>
             {
                 var record = await db.Tpps
                                             .Where(a => a.Id == id && a.Deleted == 0)
@@ -39,7 +39,8 @@ namespace GeneralStore.Controllers
                 record.Name = updaterecord.Name;
                 record.Description = updaterecord.Description;  
                 record.Status = updaterecord.Status;
-                record.Active = updaterecord.Active;                
+                //record.Active = updaterecord.Active;
+                record.Active = 1;
                 record.Note = updaterecord.Note;
 
                 record.Modification = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
