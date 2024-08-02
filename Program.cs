@@ -20,7 +20,10 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowSpecificOrigin_localhost", // Nombre de la política
         builder =>
         {
-           builder.SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost")
+            builder.SetIsOriginAllowed(origin => {
+                    var uri = new Uri(origin);
+                    return uri.Host.StartsWith("192.168.0.") || uri.Host == "localhost";
+                   })
                    .AllowAnyMethod() // Permite cualquier método (GET, POST, etc.)
                    .AllowAnyHeader(); // Permite cualquier encabezado
         });
