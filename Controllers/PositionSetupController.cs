@@ -37,8 +37,7 @@ namespace GeneralStore.Controllers
                 record.Name = updaterecord.Name;
                 record.Description = updaterecord.Description;
                 record.Status = updaterecord.Status;
-                //record.Active = updaterecord.Active;
-                record.Active = 1;
+                record.Active = updaterecord.Active;
                 record.Note = updaterecord.Note;
 
                 record.Modification = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");

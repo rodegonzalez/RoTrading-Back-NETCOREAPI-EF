@@ -14,11 +14,16 @@ namespace GeneralStore.Controllers
 
             app.MapGet("/api/account/{id}", async (Db db, int id) => await db.Accounts
                                                                             .Where(a => a.Id == id && a.Deleted == 0)
-                                                                            .FirstOrDefaultAsync());    
+                                                                          //.FirstOrDefaultAsync());    
+                                                                          .Take(1)
+                                                                          .ToListAsync());
 
             app.MapPost("/api/account", async (Db db, Account record) =>
             {
-                record.Modification = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
+                record.Creation = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                record.Modification = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                record.Active = 1;
+                record.Deleted = 0;
                 await db.Accounts.AddAsync(record);
                 await db.SaveChangesAsync();
                 return Results.Created($"/record/{record.Id}", record);
