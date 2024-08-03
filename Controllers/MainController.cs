@@ -14,6 +14,7 @@ namespace GeneralStore.Controllers
            app.MapEndpoints_Tpps();
            app.MapEndpoints_PositionSetups();
            app.MapEndpoints_PositionPatterns();
+           app.MapEndpoints_Tickers();            
         }
     }
 }

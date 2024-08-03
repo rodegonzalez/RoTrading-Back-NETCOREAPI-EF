@@ -93,6 +93,9 @@ namespace GeneralStore.Models
         public string? Status { get; set; }
         public string? Tictype { get; set; }
         public int? Active { get; set; }
+        public float? Tickmin { get; set; }
+        public float? Tickminvalue { get; set; }
+        public int? Divisaid { get; set; }
         public int? Deleted { get; set; }
         public string? Note { get; set; }
     }
