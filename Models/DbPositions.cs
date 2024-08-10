@@ -19,7 +19,7 @@ namespace GeneralStore.Models
         public int? Contracts { get; set; }
         public int? Opresultticks { get; set; }
         public decimal? Opresult { get; set; } // in divisaid
-        public decimal? Commision { get; set; } // in divisaid
+        public decimal? Commission { get; set; } // in divisaid
         public decimal? Opresulteur { get; set; }
         public int? Divisaid { get; set; }
         public int? Accountid { get; set; } // account & broker
