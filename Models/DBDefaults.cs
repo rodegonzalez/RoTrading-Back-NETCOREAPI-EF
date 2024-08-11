@@ -85,6 +85,14 @@ namespace GeneralStore.Models
         public int? Deleted { get; set; }
         public string? Note { get; set; }
     }
+    public class Tickeraccount
+    {
+        public int Tickerid { get; set; }
+        public int Accountid { get; set; }
+        public string? Creation { get; set; }        
+        public string? Modification { get; set; }
+        public float? Commission { get; set; }
+    }
     public class Tpp
     {
         public int Id { get; set; }        
