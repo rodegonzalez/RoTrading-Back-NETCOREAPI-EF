@@ -105,5 +105,13 @@ namespace GeneralStore.Models
         public int? Deleted { get; set; }
         public string? Note { get; set; }
     }
+    public class Session
+    {
+        public int Id { get; set; }
+        public float? Usdeur { get; set; }
+        public int? Haspositions { get; set; }
+        public int? Consolidated { get; set; }
+        public string? Note { get; set; }
+    }
 
 }
