@@ -7,8 +7,8 @@ namespace GeneralStore.Models
         public string? Guid { get; set; }
         public int? Tppid { get; set; }
         public int? Tppcheck { get; set; }  // 1- en tpp, 0- no tpp
-        public string? Block { get; set; }
-        public int? Blocksecuence { get; set; }  // secuence into block
+        public int? Tppblock { get; set; }
+        public int? Tppblocksecuence { get; set; }  // secuence into block
         public string? Creation { get; set; }
         public string? Modification { get; set; }
         public string? Timein { get; set; }
