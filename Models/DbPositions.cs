@@ -7,8 +7,8 @@ namespace GeneralStore.Models
         public string? Guid { get; set; }
         public int? Tppid { get; set; }
         public int? Tppcheck { get; set; }  // 1- en tpp, 0- no tpp
-        public int? Tppblock { get; set; }
-        public int? Tppblocksecuence { get; set; }  // secuence into block
+        public int? Tppblocksec { get; set; }
+        public int? Sec { get; set; }  // secuence into block
         public string? Creation { get; set; }
         public string? Modification { get; set; }
         public string? Timein { get; set; }
@@ -26,8 +26,8 @@ namespace GeneralStore.Models
         public int? Tickerid { get; set; } // ticker & market 
         public int? Pattern1id { get; set; }
         public string? Pattern2id { get; set; }
-        public int? Setup1id { get; set; }
-        public string? Setup2id { get; set; }
+        public string? Setup1id { get; set; }
+        public int? Setup2id { get; set; }
         public int? Processed { get; set; }
         public int? Deleted { get; set; }
         public string? Deletednote { get; set; }
