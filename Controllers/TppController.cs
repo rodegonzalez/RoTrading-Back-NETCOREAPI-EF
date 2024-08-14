@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using GeneralStore.Models;
 using System.Diagnostics.Eventing.Reader;
+using System.Linq;
 
 namespace GeneralStore.Controllers
 {
@@ -15,9 +16,32 @@ namespace GeneralStore.Controllers
 
             app.MapGet("/api/tpp/{id}", async (Db db, int id) => await db.Tpps
                                                                             .Where(a => a.Id == id && a.Deleted == 0)
-                                                                            //.FirstOrDefaultAsync());    
-                                                                            .Take(1)
-                                                                            .ToListAsync());
+                                                                            .FirstOrDefaultAsync());
+
+            app.MapGet("/api/tpp/getsecuence/{id}", async (Db db, int id) =>
+            {
+                // Obtener el valor máximo de tppblock para el tppid dado
+                var maxTppBlock = db.TppBlocks
+                                          .Where(tb => tb.Tppid == id)
+                                          .Max(tb => (int?)tb.Tppblocksec);
+
+                if (maxTppBlock == null)
+                {
+                    return Results.NotFound("No se encontró ningún tppblock para el tppid proporcionado.");
+                }
+
+                // Obtener el valor máximo de tppblocksecuence para el tppblock máximo
+                var maxTppBlockSecuence = db.TppBlockSecuences
+                                                  .Where(tbs => tbs.Tppid == id && tbs.Tppblocksec == maxTppBlock)
+                                                  .Max(tbs => (int?)tbs.Sec);
+
+                return Results.Ok(new
+                {
+                    Tppid = id,
+                    Tppblocksec = maxTppBlock,
+                    Sec = maxTppBlockSecuence
+                });
+            });
 
             app.MapPost("/api/tpp", async (Db db, Tpp record) =>
             {
