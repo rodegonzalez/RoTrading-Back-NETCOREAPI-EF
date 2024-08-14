@@ -100,6 +100,8 @@ namespace GeneralStore.Models
         public string? Modification { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; }
+        public string? Blockprefix { get; set; }
+        public int? Maxblocksecuence { get; set; }
         public string? Status { get; set; }
         public int? Active { get; set; }
         public int? Deleted { get; set; }

@@ -43,7 +43,6 @@ namespace GeneralStore.Controllers
                 record.Modification = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
                 record.Amount_initial = updaterecord.Amount_initial;
                 record.Amount_current = updaterecord.Amount_current;
-                record.Brokerid = updaterecord.Brokerid;
                 record.Divisaid = updaterecord.Divisaid;
                 record.Acctype = updaterecord.Acctype;
 

@@ -9,7 +9,6 @@ namespace GeneralStore.Models
         public string? Description { get; set; }
         public decimal? Amount_initial { get; set; }
         public decimal? Amount_current { get; set; }
-        public int? Brokerid { get; set; }
         public int? Divisaid { get; set; }
         public string? Status { get; set; }
         public string? Acctype { get; set; }
