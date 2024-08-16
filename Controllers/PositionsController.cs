@@ -50,6 +50,7 @@ namespace GeneralStore.Controllers
                 // update block secuence
                 Tppblocksecuence tppblocksecuence = new Tppblocksecuence();
                 tppblocksecuence.Positionid = record.Id;
+                tppblocksecuence.Sessionid = record.Sessionid;
                 tppblocksecuence.Tppid = record.Tppid;
                 tppblocksecuence.Tppblocksec = record.Tppblocksec;
                 tppblocksecuence.Sec = record.Sec;
@@ -116,6 +117,7 @@ namespace GeneralStore.Controllers
                     return Results.NotFound();
                 }
                 record.Deleted = 1;
+                record.Deletednote = "Deleted by user on " + DateTime.Now.ToString("yyyyMMdd HH:mm:ss") ;
                 record.Modification = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
                 await db.SaveChangesAsync();
                 return Results.Ok();

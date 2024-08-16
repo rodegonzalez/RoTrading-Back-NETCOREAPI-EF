@@ -31,7 +31,7 @@ namespace GeneralStore.Models
         public string? Modification { get; set; }
         public int? Tppid { get; set; }
         public int? Tppblocksec { get; set; }
-        public int? Sessionid { get; set; }
+        public string? Sessionid { get; set; }
         public int? Positionid { get; set; }
         public int? Sec { get; set; }
     }
