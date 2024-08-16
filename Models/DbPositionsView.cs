@@ -18,6 +18,7 @@ namespace GeneralStore.Models
         public string? Buysell { get; set; }
         public int? Contracts { get; set; }
         public int? Opresultticks { get; set; }
+        public decimal? Usdeur { get; set; }
         public decimal? Opresult { get; set; } // in divisaid
         public decimal? Commission { get; set; } // in divisaid
         public decimal? Opresulteur { get; set; }
