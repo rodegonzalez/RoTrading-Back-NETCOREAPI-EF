@@ -70,6 +70,38 @@ namespace GeneralStore.Controllers
                                             .FirstOrDefaultAsync();
                 if (record is null) return Results.NotFound();
 
+                record.Sessionid = updaterecord.Sessionid;
+                record.Guid = updaterecord.Guid;
+                record.Tppid = updaterecord.Tppid;
+                record.Tppcheck = updaterecord.Tppcheck;
+                record.Tppblocksec = updaterecord.Tppblocksec;
+                record.Sec = updaterecord.Sec;
+                //record.Creation = updaterecord.Creation;
+                record.Timein = updaterecord.Timein;
+                record.Timeout = updaterecord.Timeout;
+                record.Pricein = updaterecord.Pricein;
+                record.Priceout = updaterecord.Priceout;
+                record.Buysell = updaterecord.Buysell;
+                record.Contracts = updaterecord.Contracts;
+                record.Opresultticks = updaterecord.Opresultticks;
+                record.Usdeur = updaterecord.Usdeur;
+                record.Opresult = updaterecord.Opresult;
+                record.Commission = updaterecord.Commission;
+                record.Opresulteur = updaterecord.Opresulteur;
+                record.Divisaid = updaterecord.Divisaid;
+                record.Accountid = updaterecord.Accountid;
+                record.Tickerid = updaterecord.Tickerid;
+                record.Pattern1id = updaterecord.Pattern1id;
+                record.Pattern2id = updaterecord.Pattern2id;
+                record.Setup1id = updaterecord.Setup1id;
+                record.Setup2id = updaterecord.Setup2id;
+                //record.Processed = updaterecord.Processed;
+                //record.Deleted = updaterecord.Deleted;
+                //record.Deletednote = updaterecord.Deletednote;
+                record.Imagepath = updaterecord.Imagepath;
+                record.Note = updaterecord.Note;
+                record.Status = updaterecord.Status;
+
                 record.Modification = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
                 await db.SaveChangesAsync();
                 return Results.NoContent();
