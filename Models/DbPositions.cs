@@ -21,6 +21,7 @@ namespace GeneralStore.Models
         public decimal? Opresult { get; set; } // in divisaid
         public decimal? Commission { get; set; } // in divisaid
         public decimal? Opresulteur { get; set; }
+        public decimal? Usdeur { get; set; }
         public int? Divisaid { get; set; }
         public int? Accountid { get; set; } // account & broker
         public int? Tickerid { get; set; } // ticker & market 
