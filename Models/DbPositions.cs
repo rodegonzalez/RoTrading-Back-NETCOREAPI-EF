@@ -3,12 +3,12 @@ namespace GeneralStore.Models
     public class Position
     {
         public int Id { get; set; }
-        public string? Sessionid { get; set; } // in yyyyMMdd format
-        public string? Guid { get; set; }
-        public int? Tppid { get; set; }
-        public int? Tppcheck { get; set; }  // 1- en tpp, 0- no tpp
-        public int? Tppblocksec { get; set; }
-        public int? Sec { get; set; }  // secuence into block
+        public required string Sessionid { get; set; } // in yyyyMMdd format
+        public required string Guid { get; set; }
+        public required int Tppid { get; set; }
+        public required int Tppcheck { get; set; }  // 1- en tpp, 0- no tpp
+        public required int Tppblocksec { get; set; }
+        public required int Sec { get; set; }  // secuence into block
         public string? Creation { get; set; }
         public string? Modification { get; set; }
         public string? Timein { get; set; }

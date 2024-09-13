@@ -3,11 +3,17 @@ using Microsoft.EntityFrameworkCore;
 using GeneralStore.Models;
 using GeneralStore.Controllers;
 using GeneralStore.Interfaces;
-using GeneralStore.Repositories;
+using BK_NetAPI_SQLite.Services;
+using BK_NetAPI_SQLite.Interfaces;
+using BK_NetAPI_SQLite.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("rotrading") ?? "Data Source=../rotrading.db";
-builder.Services.AddSqlite<Db>(connectionString);
+//var connectionString = builder.Configuration.GetConnectionString("rotrading") ?? "Data Source=../rotrading.db";
+//builder.Services.AddSqlite<Db>(connectionString);
+
+builder.Services.AddDbContext<Db>(options => options.UseSqlite("Data Source=../rotrading.db"));
+builder.Services.AddScoped<IPosition, PositionRepository>();
+builder.Services.AddScoped<PositionService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
