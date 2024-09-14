@@ -10,7 +10,7 @@ namespace GeneralStore.Controllers
     {
         public static void MapEndpoints_Sessions(this WebApplication app)
         {
-
+            /*
             app.MapGet("/api/sessions", async (IPositionsSession repo) => await repo.GetAllAsync());
             app.MapGet("/api/session/{id}", async (IPositionsSession repo, string id) => await repo.GetByIdAsync(id));
             app.MapGet("/api/session/last", async (IPositionsSession repo) => await repo.GetLastAsync());
@@ -34,8 +34,12 @@ namespace GeneralStore.Controllers
                 if (item is null) return Results.NotFound();
                 return Results.Ok();
             });
+            */
 
-            /*
+
+            /* ------------------------------------------------- */
+            /* ------------------------------------------------- */
+
             app.MapGet("/api/sessions", async (Db db) => await db.Sessions.ToListAsync());                                                                
 
             app.MapGet("/api/session/{id}", async (Db db, string id) => await db.Sessions
@@ -104,8 +108,8 @@ namespace GeneralStore.Controllers
                 await db.SaveChangesAsync();
                 return Results.Ok();
             });
-            */
 
+            /* ------------------------------------------------- */
 
 
         }

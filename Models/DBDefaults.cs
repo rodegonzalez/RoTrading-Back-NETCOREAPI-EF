@@ -95,7 +95,7 @@ namespace GeneralStore.Models
     }
     public class Session
     {
-        public required string Id { get; set; }
+        public string Id { get; set; }
         public string? Creation { get; set; }
         public string? Modification { get; set; }
         public float? Usdeur { get; set; }

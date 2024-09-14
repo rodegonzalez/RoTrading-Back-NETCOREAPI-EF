@@ -22,8 +22,10 @@ namespace BK_NetAPI_SQLite.Extensions
             services.AddScoped<IPosition, PositionRepository>();
             services.AddScoped<PositionService>();
 
+            /*
             services.AddScoped<IPositionsSession, PositionsSessionRepository>();
             services.AddScoped<PositionsSessionService>();
+            */
 
             // Swagger
             services.AddEndpointsApiExplorer();
