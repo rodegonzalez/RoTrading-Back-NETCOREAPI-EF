@@ -1,6 +1,6 @@
 ﻿namespace BK_NetAPI_SQLite.Common
 {
-    public static class Common
+    public static class CommonShared
     {       
         public static string GetMyDateTime()
         {

@@ -1,5 +1,6 @@
 using BK_NetAPI_SQLite.Interfaces;
 using GeneralStore.Models;
+using BK_NetAPI_SQLite.Common;
 
 namespace BK_NetAPI_SQLite.Services
 {
@@ -14,7 +15,7 @@ namespace BK_NetAPI_SQLite.Services
 
         public async Task<Position> CreatePositionAsync(Position record)
         {
-            string _now = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
+            string _now = CommonShared.GetMyDateTime();
             record.Modification = _now;
             await _repo.AddPositionAsync(record);
 
@@ -54,7 +55,7 @@ namespace BK_NetAPI_SQLite.Services
 
         public async Task<Position?> UpdatePositionAsync(Position updaterecord, int id)
         {
-            string _now = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
+            string _now = CommonShared.GetMyDateTime();
             var record = await _repo.GetPositionByIdAsync(id);
             if (record is null) return null;
 
@@ -102,7 +103,7 @@ namespace BK_NetAPI_SQLite.Services
             if (record is null || record.Deleted == 1) return null;
 
             record.Deleted = 1;
-            record.Modification = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
+            record.Modification = CommonShared.GetMyDateTime();
 
             await _repo.SaveChangesAsync();
             return record;
