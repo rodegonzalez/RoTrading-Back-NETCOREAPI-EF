@@ -95,5 +95,18 @@ namespace BK_NetAPI_SQLite.Services
             await _positionRepository.SaveChangesAsync();
             return record;
         }
+
+        public async Task<Position?> DeletePositionAsync(int id)
+        {            
+            var record = await _positionRepository.GetPositionByIdAsync(id);
+            if (record is null || record.Deleted == 1) return null;
+
+            record.Deleted = 1;
+            record.Modification = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
+
+            await _positionRepository.SaveChangesAsync();
+            return record;
+        }
+
     }
 }

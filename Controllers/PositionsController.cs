@@ -26,16 +26,10 @@ namespace GeneralStore.Controllers
                 return Results.NoContent();
             });
 
-            app.MapDelete("/api/position/{id}", async (IPosition repo, int id) =>
+            app.MapDelete("/api/position/{id}", async (PositionService service, int id) =>
             {
-                var record = await repo.GetPositionByIdAsync(id);
-                if (record is null || record.Deleted == 1)
-                {
-                    return Results.NotFound();
-                }
-                record.Deleted = 1;
-                record.Modification = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
-                await repo.SaveChangesAsync();
+                var position = await service.DeletePositionAsync(id);
+                if (position is null) return Results.NotFound();
                 return Results.Ok();
             });
         }
