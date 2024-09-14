@@ -1,6 +1,7 @@
 using BK_NetAPI_SQLite.Interfaces;
 using BK_NetAPI_SQLite.Repositories;
 using GeneralStore.Models;
+using BK_NetAPI_SQLite.Common;
 
 namespace BK_NetAPI_SQLite.Services
 {
@@ -13,7 +14,7 @@ namespace BK_NetAPI_SQLite.Services
             _repo = repository;
         }
 
-        public async Task<Session> CreateAsync(string id)
+        public async Task<Session> CreateItemAsync(string id)
         {            
             Session? session = await _repo.GetByIdAsync(id);
             if (session is null)
@@ -39,7 +40,7 @@ namespace BK_NetAPI_SQLite.Services
             return session;           
         }
 
-        public async Task<Session?> UpdateAsync(Session updaterecord, string id)
+        public async Task<Session?> UpdateItemAsync(Session updaterecord, string id)
         {            
             var record = await _repo.GetByIdAsync(id);
             if (record is null) return null;
@@ -55,7 +56,7 @@ namespace BK_NetAPI_SQLite.Services
             return record;
         }
 
-        public async Task<Session?> DeleteAsync(string id)
+        public async Task<Session?> DeleteItemAsync(string id)
         {            
             var record = await _repo.GetByIdAsync(id);
             if (record is null || record.Deleted == 1) return null;

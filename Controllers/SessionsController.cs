@@ -17,20 +17,20 @@ namespace GeneralStore.Controllers
 
             app.MapPost("/api/session", async (PositionsSessionService service, string id) =>
             {
-                var newItem = await service.CreateAsync(id);
+                var newItem = await service.CreateItemAsync(id);
                 return Results.Created($"/record/{newItem.Id}", newItem);
             });
 
             app.MapPut("/api/sessions/{id}", async (PositionsSessionService service, Session updaterecord, string id) =>
             {
-                var updatedItem = await service.UpdateAsync(updaterecord, id);
+                var updatedItem = await service.UpdateItemAsync(updaterecord, id);
                 if (updatedItem is null) return Results.NotFound();
                 return Results.NoContent();
             });
 
             app.MapDelete("/api/position/{id}", async (PositionsSessionService service, string id) =>
             {
-                var item = await service.DeleteAsync(id);
+                var item = await service.DeleteItemAsync(id);
                 if (item is null) return Results.NotFound();
                 return Results.Ok();
             });
