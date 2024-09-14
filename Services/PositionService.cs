@@ -5,21 +5,21 @@ namespace BK_NetAPI_SQLite.Services
 {
     public class PositionService
     {
-        private readonly IPosition _positionRepository;
+        private readonly IPosition _repo;
 
         public PositionService(IPosition positionRepository)
         {
-            _positionRepository = positionRepository;
+            _repo = positionRepository;
         }
 
         public async Task<Position> CreatePositionAsync(Position record)
         {
             string _now = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
             record.Modification = _now;
-            await _positionRepository.AddPositionAsync(record);
+            await _repo.AddPositionAsync(record);
 
             // create tppblock if not exists
-            Tppblock? tppblock = await _positionRepository.GetTppBlockAsync(record.Tppid, record.Tppblocksec);
+            Tppblock? tppblock = await _repo.GetTppBlockAsync(record.Tppid, record.Tppblocksec);
 
             if (tppblock is null)
             {
@@ -30,7 +30,7 @@ namespace BK_NetAPI_SQLite.Services
                     Creation = _now,
                     Modification = _now
                 };
-                await _positionRepository.AddTppBlockAsync(newtppblock);
+                await _repo.AddTppBlockAsync(newtppblock);
             }
 
             // update block secuence
@@ -44,10 +44,10 @@ namespace BK_NetAPI_SQLite.Services
                 Creation = _now,
                 Modification = _now,
             };
-            await _positionRepository.AddTppBlockSecuenceAsync(tppblocksecuence);
+            await _repo.AddTppBlockSecuenceAsync(tppblocksecuence);
 
             // update db
-            await _positionRepository.SaveChangesAsync();
+            await _repo.SaveChangesAsync();
 
             return record;
         }
@@ -55,7 +55,7 @@ namespace BK_NetAPI_SQLite.Services
         public async Task<Position?> UpdatePositionAsync(Position updaterecord, int id)
         {
             string _now = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
-            var record = await _positionRepository.GetPositionByIdAsync(id);
+            var record = await _repo.GetPositionByIdAsync(id);
             if (record is null) return null;
 
             record.Sessionid = updaterecord.Sessionid;
@@ -92,19 +92,19 @@ namespace BK_NetAPI_SQLite.Services
 
             record.Modification = _now;
 
-            await _positionRepository.SaveChangesAsync();
+            await _repo.SaveChangesAsync();
             return record;
         }
 
         public async Task<Position?> DeletePositionAsync(int id)
         {            
-            var record = await _positionRepository.GetPositionByIdAsync(id);
+            var record = await _repo.GetPositionByIdAsync(id);
             if (record is null || record.Deleted == 1) return null;
 
             record.Deleted = 1;
             record.Modification = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
 
-            await _positionRepository.SaveChangesAsync();
+            await _repo.SaveChangesAsync();
             return record;
         }
 
