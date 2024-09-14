@@ -4,7 +4,7 @@ using BK_NetAPI_SQLite.Services;
 using GeneralStore.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-
+using Microsoft.Extensions.DependencyInjection;
 namespace BK_NetAPI_SQLite.Extensions
 {
     public static class ServiceExtensions
@@ -21,6 +21,9 @@ namespace BK_NetAPI_SQLite.Extensions
             // Repositories
             services.AddScoped<IPosition, PositionRepository>();
             services.AddScoped<PositionService>();
+
+            services.AddScoped<IPositionsSession, PositionsSessionRepository>();
+            services.AddScoped<PositionsSessionService>();
 
             // Swagger
             services.AddEndpointsApiExplorer();

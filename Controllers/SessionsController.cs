@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using GeneralStore.Models;
 using System.Linq;
+using BK_NetAPI_SQLite.Interfaces;
+using BK_NetAPI_SQLite.Services;
 
 namespace GeneralStore.Controllers
 {
@@ -8,6 +10,32 @@ namespace GeneralStore.Controllers
     {
         public static void MapEndpoints_Sessions(this WebApplication app)
         {
+
+            app.MapGet("/api/sessions", async (IPositionsSession repo) => await repo.GetAllAsync());
+            app.MapGet("/api/session/{id}", async (IPositionsSession repo, string id) => await repo.GetByIdAsync(id));
+            app.MapGet("/api/session/last", async (IPositionsSession repo) => await repo.GetLastAsync());
+
+            app.MapPost("/api/session", async (PositionsSessionService service, string id) =>
+            {
+                var newItem = await service.CreateAsync(id);
+                return Results.Created($"/record/{newItem.Id}", newItem);
+            });
+
+            app.MapPut("/api/sessions/{id}", async (PositionsSessionService service, Session updaterecord, string id) =>
+            {
+                var updatedItem = await service.UpdateAsync(updaterecord, id);
+                if (updatedItem is null) return Results.NotFound();
+                return Results.NoContent();
+            });
+
+            app.MapDelete("/api/position/{id}", async (PositionsSessionService service, string id) =>
+            {
+                var item = await service.DeleteAsync(id);
+                if (item is null) return Results.NotFound();
+                return Results.Ok();
+            });
+
+            /*
             app.MapGet("/api/sessions", async (Db db) => await db.Sessions.ToListAsync());                                                                
 
             app.MapGet("/api/session/{id}", async (Db db, string id) => await db.Sessions
@@ -76,6 +104,10 @@ namespace GeneralStore.Controllers
                 await db.SaveChangesAsync();
                 return Results.Ok();
             });
+            */
+
+
+
         }
     }
 }
