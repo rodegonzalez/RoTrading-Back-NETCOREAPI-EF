@@ -1,6 +1,7 @@
-using Microsoft.EntityFrameworkCore;
 using GeneralStore.Models;
-using  GeneralStore.Repositories;
+using GeneralStore.Interfaces;
+using GeneralStore.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace GeneralStore.Controllers
 {
@@ -8,6 +9,36 @@ namespace GeneralStore.Controllers
     {
         public static void MapEndpoints_Accounts(this WebApplication app)
         {
+
+            /* ---------------------------------- */
+            /*
+            app.MapGet("/api/accounts", async (IAccount repo) => await repo.GetAllAsync());
+
+            app.MapGet("/api/account/{id}", async (IAccount repo, int id) => await repo.GetItemByIdAsync(id));
+
+            app.MapPost("/api/account", async (AccountService service, Account record) =>
+            {
+                var newItem = await service.CreateItemAsync(record);
+                return (newItem is null) ? Results.NotFound() : Results.Created($"/record/{newItem.Id}", newItem);
+            });
+
+            app.MapPut("/api/account/{id}", async (AccountService service, Account updaterecord, int id) =>
+            {
+                var updatedItem = await service.UpdateItemAsync(updaterecord, id);
+                return (updatedItem is null)  ? Results.NotFound() : Results.NoContent();
+            });
+
+            app.MapDelete("/api/account/{id}", async (AccountService service, int id) =>
+            {
+                var item = await service.DeleteItemAsync(id);
+                return (item is null) ? Results.NotFound() : Results.Ok();
+            });
+            */
+
+            /* ---------------------------------- */
+            /* ---------------------------------- */
+
+            
             app.MapGet("/api/accounts", async (Db db) => await db.Accounts
                                                                 .Where(a => a.Deleted == 0)
                                                                 .ToListAsync());
@@ -63,6 +94,12 @@ namespace GeneralStore.Controllers
                 await db.SaveChangesAsync();
                 return Results.Ok();
             });
+            
+
+            /* ---------------------------------- */
+
+
+
         }
     }
 }

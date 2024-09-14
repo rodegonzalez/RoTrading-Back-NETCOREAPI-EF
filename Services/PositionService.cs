@@ -1,8 +1,8 @@
-using BK_NetAPI_SQLite.Interfaces;
+using GeneralStore.Interfaces;
 using GeneralStore.Models;
-using BK_NetAPI_SQLite.Common;
+using GeneralStore.Common;
 
-namespace BK_NetAPI_SQLite.Services
+namespace GeneralStore.Services
 {
     public class PositionService
     {

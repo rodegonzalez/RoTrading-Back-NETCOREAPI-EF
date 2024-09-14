@@ -1,6 +1,6 @@
 using GeneralStore.Models;
 
-namespace BK_NetAPI_SQLite.Interfaces
+namespace GeneralStore.Interfaces
 {
     public interface IPosition
     {

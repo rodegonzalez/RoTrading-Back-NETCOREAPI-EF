@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using GeneralStore.Models;
 using System.Linq;
-using BK_NetAPI_SQLite.Interfaces;
-using BK_NetAPI_SQLite.Services;
+using GeneralStore.Interfaces;
+using GeneralStore.Services;
 
 namespace GeneralStore.Controllers
 {

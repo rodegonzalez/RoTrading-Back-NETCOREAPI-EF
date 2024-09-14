@@ -1,5 +1,5 @@
-using BK_NetAPI_SQLite.Interfaces;
-using BK_NetAPI_SQLite.Services;
+using GeneralStore.Interfaces;
+using GeneralStore.Services;
 using GeneralStore.Models;
 
 namespace GeneralStore.Controllers

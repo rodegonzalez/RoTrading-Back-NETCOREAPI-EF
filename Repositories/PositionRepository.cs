@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using GeneralStore.Models;
-using BK_NetAPI_SQLite.Interfaces;
+using GeneralStore.Interfaces;
 
-namespace BK_NetAPI_SQLite.Repositories
+namespace GeneralStore.Repositories
 {
     public class PositionRepository : IPosition
     {

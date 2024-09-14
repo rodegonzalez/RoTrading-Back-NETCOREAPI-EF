@@ -1,7 +1,6 @@
-using BK_NetAPI_SQLite.Interfaces;
-using BK_NetAPI_SQLite.Repositories;
+using GeneralStore.Repositories;
 using GeneralStore.Models;
-using BK_NetAPI_SQLite.Common;
+using GeneralStore.Common;
 
 namespace BK_NetAPI_SQLite.Services
 {
@@ -16,10 +15,10 @@ namespace BK_NetAPI_SQLite.Services
 
         public async Task<Session> CreateItemAsync(string id)
         {            
-            Session? session = await _repo.GetByIdAsync(id);
+            Session? session = await _repo.GetItemByIdAsync(id);
             if (session is null)
             {
-                string _now = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
+                string _now = CommonShared.GetMyDateTime();
                 Session newsession = new Session
                 {
                     Id = id,
@@ -42,7 +41,7 @@ namespace BK_NetAPI_SQLite.Services
 
         public async Task<Session?> UpdateItemAsync(Session updaterecord, string id)
         {            
-            var record = await _repo.GetByIdAsync(id);
+            var record = await _repo.GetItemByIdAsync(id);
             if (record is null) return null;
 
             record.Usdeur = updaterecord.Usdeur;
@@ -50,7 +49,7 @@ namespace BK_NetAPI_SQLite.Services
             record.Consolidated = updaterecord.Consolidated;
             record.Active = updaterecord.Active;
             record.Sessionnote = updaterecord.Sessionnote;
-            record.Modification = DateTime.Now.ToString("yyyyMMdd HH:mm:ss"); ;
+            record.Modification = CommonShared.GetMyDateTime();
 
             await _repo.SaveChangesAsync();
             return record;
@@ -58,11 +57,11 @@ namespace BK_NetAPI_SQLite.Services
 
         public async Task<Session?> DeleteItemAsync(string id)
         {            
-            var record = await _repo.GetByIdAsync(id);
+            var record = await _repo.GetItemByIdAsync(id);
             if (record is null || record.Deleted == 1) return null;
 
             record.Deleted = 1;
-            record.Modification = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
+            record.Modification = CommonShared.GetMyDateTime();
 
             await _repo.SaveChangesAsync();
             return record;

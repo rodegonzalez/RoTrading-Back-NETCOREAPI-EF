@@ -1,11 +1,13 @@
-﻿using BK_NetAPI_SQLite.Interfaces;
-using BK_NetAPI_SQLite.Repositories;
-using BK_NetAPI_SQLite.Services;
+﻿using GeneralStore.Interfaces;
+using GeneralStore.Repositories;
+using GeneralStore.Services;
 using GeneralStore.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Microsoft.Extensions.DependencyInjection;
-namespace BK_NetAPI_SQLite.Extensions
+using System;
+
+namespace GeneralStore.Extensions
 {
     public static class ServiceExtensions
     {
@@ -19,13 +21,21 @@ namespace BK_NetAPI_SQLite.Extensions
             services.AddDbContext<Db>(options => options.UseSqlite("Data Source=../rotrading.db"));
 
             // Repositories
+            
             services.AddScoped<IPosition, PositionRepository>();
             services.AddScoped<PositionService>();
+            //services.AddScoped<PositionRepository>();
 
-            /*
+            /* TODO: Fails when registering more than 1 service!
             services.AddScoped<IPositionsSession, PositionsSessionRepository>();
             services.AddScoped<PositionsSessionService>();
             */
+
+            /* TODO: Fails when registering more than 1 service!
+            services.AddScoped<IAccount, AccountRepository>();
+            services.AddScoped<AccountService>();
+            */
+
 
             // Swagger
             services.AddEndpointsApiExplorer();

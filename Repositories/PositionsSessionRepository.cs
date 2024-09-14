@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using GeneralStore.Models;
-using BK_NetAPI_SQLite.Interfaces;
+using GeneralStore.Interfaces;
 
-namespace BK_NetAPI_SQLite.Repositories
+namespace GeneralStore.Repositories
 {
     public class PositionsSessionRepository : IPositionsSession
     {
@@ -18,7 +18,7 @@ namespace BK_NetAPI_SQLite.Repositories
             return await _context.Sessions.Where(a => a.Deleted == 0).ToListAsync();
         }
 
-        public async Task<Session?> GetByIdAsync(string id)
+        public async Task<Session?> GetItemByIdAsync(string id)
         {
             return await _context.Sessions.Where(a => a.Id == id && a.Deleted == 0).FirstOrDefaultAsync();
         }
