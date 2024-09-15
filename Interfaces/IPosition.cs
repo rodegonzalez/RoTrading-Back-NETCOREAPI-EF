@@ -6,8 +6,8 @@ namespace GeneralStore.Interfaces
     {
         Task<List<PositionView>> GetAllAsync();
         Task<Position?> GetAsync(int id);
-        Task<Position> CreateAsync(Position position);
-        Task<Position?> UpdateAsync(Position position, int id);
+        Task<Position> CreateAsync(Position record);
+        Task<Position?> UpdateAsync(Position record, int id);
         Task<Position?> DeleteAsync(int id);
         Task<List<PositionView>> GetOpenedPositionsAsync();
         Task<List<PositionView>> GetNotOpenedPositionsAsync();
