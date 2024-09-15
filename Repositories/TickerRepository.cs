@@ -40,8 +40,7 @@ namespace GeneralStore.Repositories
 
         public async Task<Ticker?> UpdateAsync(Ticker updaterecord, int id)
         {
-            //var record = await this.GetAsync(id);
-            var record = await _context.Tickers.Where(a => a.Id == id && a.Deleted == 0).FirstAsync();
+            var record = await this.GetAsync(id);
             if (record is null) return null;
 
             record.Name = updaterecord.Name;
@@ -56,8 +55,7 @@ namespace GeneralStore.Repositories
 
         public async Task<Ticker?> DeleteAsync(int id)
         {
-            //var record = await this.GetAsync(id);
-            var record = await _context.Tickers.Where(a => a.Id == id && a.Deleted == 0).FirstAsync();
+            var record = await this.GetAsync(id);
             if (record is null || record.Deleted == 1) return null;
 
             record.Deleted = 1;
