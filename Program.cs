@@ -14,7 +14,6 @@ try
     builder.Services.AddSqlite<Db>(connectionString);    
     //services.AddDbContext<Db>(options => options.UseSqlite("Data Source=../rotrading.db"));
 
-
     // Call ConfigureServices method from ServiceExtensions.cs
     builder.Services.ConfigureServices();
 

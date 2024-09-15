@@ -4,14 +4,15 @@ namespace GeneralStore.Interfaces
 {
     public interface IPosition
     {
-        Task<List<PositionView>> GetAllPositionsAsync();
+        Task<List<PositionView>> GetAllAsync();
+        Task<Position?> GetAsync(int id);
+        Task<Position> CreateAsync(Position position);
+        Task<Position?> UpdateAsync(Position position, int id);
+        Task<Position?> DeleteAsync(int id);
         Task<List<PositionView>> GetOpenedPositionsAsync();
         Task<List<PositionView>> GetNotOpenedPositionsAsync();
-        Task<Position?> GetPositionByIdAsync(int id);
-        Task AddPositionAsync(Position position);
         Task<Tppblock?> GetTppBlockAsync(int tppid, int tppblocksec);
-        Task AddTppBlockAsync(Tppblock tppblock);
-        Task AddTppBlockSecuenceAsync(Tppblocksecuence tppblocksecuence);
-        Task SaveChangesAsync();
+        Task CreateTppBlockAsync(Tppblock tppblock);
+        Task CreateTppBlockSecuenceAsync(Tppblocksecuence tppblocksecuence);
     }
 }

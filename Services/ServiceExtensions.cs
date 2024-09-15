@@ -12,29 +12,11 @@ namespace GeneralStore.Extensions
     public static class ServiceExtensions
     {
         public static void ConfigureServices(this IServiceCollection services)
-        {
-            // Agrega aquí todas las configuraciones de servicios
-            
+        {           
             // Repositories
-            ////services.AddScoped<PositionRepository>();
-            //services.AddScoped<IPosition, PositionRepository>();
-            //services.AddScoped<PositionService>();
             services.AddScoped<IPosition, PositionRepository>();
-            services.AddScoped<PositionService>();
-
-            /* TODO: Fails when registering more than 1 service!
-            services.AddScoped<IPositionsSession, PositionsSessionRepository>();
-            services.AddScoped<PositionsSessionService>();
-            */
-            services.AddScoped<IPositionsSession, PositionsSessionRepository>();
-
-            /* TODO: Fails when registering more than 1 service!
-            services.AddScoped<IAccount, AccountRepository>();
-            services.AddScoped<AccountService>();
-            */
-            services.AddScoped<IAccount,AccountRepository>();
-            //services.AddScoped<AccountService>();
-
+            //services.AddScoped<IPositionsSession, PositionsSessionRepository>();
+            //services.AddScoped<IAccount,AccountRepository>();
 
             // Swagger
             services.AddEndpointsApiExplorer();
