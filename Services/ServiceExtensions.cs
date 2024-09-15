@@ -14,27 +14,26 @@ namespace GeneralStore.Extensions
         public static void ConfigureServices(this IServiceCollection services)
         {
             // Agrega aquí todas las configuraciones de servicios
-
-            // Db
-            //var connectionString = builder.Configuration.GetConnectionString("rotrading") ?? "Data Source=../rotrading.db";
-            //builder.Services.AddSqlite<Db>(connectionString);
-            services.AddDbContext<Db>(options => options.UseSqlite("Data Source=../rotrading.db"));
-
-            // Repositories
             
+            // Repositories
+            ////services.AddScoped<PositionRepository>();
+            //services.AddScoped<IPosition, PositionRepository>();
+            //services.AddScoped<PositionService>();
             services.AddScoped<IPosition, PositionRepository>();
             services.AddScoped<PositionService>();
-            //services.AddScoped<PositionRepository>();
 
             /* TODO: Fails when registering more than 1 service!
             services.AddScoped<IPositionsSession, PositionsSessionRepository>();
             services.AddScoped<PositionsSessionService>();
             */
+            services.AddScoped<IPositionsSession, PositionsSessionRepository>();
 
             /* TODO: Fails when registering more than 1 service!
             services.AddScoped<IAccount, AccountRepository>();
             services.AddScoped<AccountService>();
             */
+            services.AddScoped<IAccount,AccountRepository>();
+            //services.AddScoped<AccountService>();
 
 
             // Swagger

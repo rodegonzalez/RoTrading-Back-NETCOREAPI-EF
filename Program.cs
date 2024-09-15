@@ -3,10 +3,17 @@ using GeneralStore.Extensions;
 using GeneralStore.Repositories;
 using GeneralStore.Interfaces;
 using GeneralStore.Services;
+using GeneralStore.Models;
 
 try
 {
     var builder = WebApplication.CreateBuilder(args);
+
+    // Db
+    var connectionString = builder.Configuration.GetConnectionString("rotrading") ?? "Data Source=../rotrading.db";
+    builder.Services.AddSqlite<Db>(connectionString);    
+    //services.AddDbContext<Db>(options => options.UseSqlite("Data Source=../rotrading.db"));
+
 
     // Call ConfigureServices method from ServiceExtensions.cs
     builder.Services.ConfigureServices();
