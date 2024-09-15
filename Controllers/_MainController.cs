@@ -1,6 +1,6 @@
 namespace GeneralStore.Controllers
 {
-    public static class MainController
+    public static class _MainController
     {
         public static void MapAllEndpoints(this WebApplication app)
         {

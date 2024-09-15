@@ -4,7 +4,7 @@ using Microsoft.OpenApi.Models;
 
 namespace GeneralStore.Extensions
 {
-    public static class ServiceExtensions
+    public static class _ServiceExtensions
     {
         public static void ConfigureServices(this IServiceCollection services)
         {           
