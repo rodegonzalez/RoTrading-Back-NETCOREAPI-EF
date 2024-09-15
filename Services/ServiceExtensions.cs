@@ -18,6 +18,9 @@ namespace GeneralStore.Extensions
             services.AddScoped<IAccount,AccountRepository>();
             services.AddScoped<ITicker, TickerRepository>();
             services.AddScoped<ITpp, TppRepository>();
+            services.AddScoped<IDivisa, DivisaRepository>();
+            services.AddScoped<IPositionSetup, PositionSetupRepository>();
+            services.AddScoped<IPositionHighPattern, PositionHighPatternRepository>();
 
             // Swagger
             services.AddEndpointsApiExplorer();

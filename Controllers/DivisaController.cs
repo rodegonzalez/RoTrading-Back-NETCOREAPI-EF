@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using GeneralStore.Models;
 using System.Diagnostics.Eventing.Reader;
+using GeneralStore.Interfaces;
 
 namespace GeneralStore.Controllers
 {
@@ -8,58 +9,28 @@ namespace GeneralStore.Controllers
     {
         public static void MapEndpoints_Divisas(this WebApplication app)
         {
-            app.MapGet("/api/divisas", async (Db db) => await db.Divisas
-                                                                .Where(a => a.Deleted == 0)
-                                                                .Take(100)
-                                                                .ToListAsync());            
+            app.MapGet("/api/divisas", async (IDivisa repo) => await repo.GetAllAsync());
 
-            app.MapGet("/api/divisa/{id}", async (Db db, int id) => await db.Divisas
-                                                                            .Where(a => a.Id == id && a.Deleted == 0)
-                                                                            //.FirstOrDefaultAsync());    
-                                                                            .Take(1)
-                                                                            .ToListAsync());
+            app.MapGet("/api/divisa/{id}", async (IDivisa repo, int id) => await repo.GetAsync(id));
 
-            app.MapPost("/api/divisa", async (Db db, Divisa record) =>
+            app.MapPost("/api/divisa", async (IDivisa repo, Divisa record) =>
             {
-                record.Creation = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                record.Modification = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                record.Active = 1;
-                record.Deleted = 0;
-                await db.Divisas.AddAsync(record);
-                await db.SaveChangesAsync();
-                return Results.Created($"/record/{record.Id}", record);
+                var newItem = await repo.CreateAsync(record);
+                return (newItem is null) ? Results.NotFound() : Results.Created($"/record/{newItem.Id}", newItem);
             });
-            app.MapPut("/api/divisa/{id}", async (Db db, Tpp updaterecord, int id) =>
-            {
-                var record = await db.Divisas
-                                            .Where(a => a.Id == id && a.Deleted == 0)
-                                            .FirstOrDefaultAsync();
-                if (record is null) return Results.NotFound();
 
-                record.Name = updaterecord.Name;
-                record.Description = updaterecord.Description;  
-                record.Active = updaterecord.Active;
-                record.Note = updaterecord.Note;
-
-                record.Modification = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                await db.SaveChangesAsync();
-                return Results.NoContent();
-            });
-            app.MapDelete("/api/divisa/{id}", async (Db db, int id) =>
+            app.MapPut("/api/divisa/{id}", async (IDivisa repo, Divisa updaterecord, int id) =>
             {
-                var record = await db.Divisas
-                                    .Where(a => a.Id == id && a.Deleted == 0)
-                                    .FirstOrDefaultAsync();
-                if (record is null)
-                {
-                    return Results.NotFound();
-                }
-                record.Deleted = 1;
-                record.Modification = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                record.Name = $"{record.Name}_[{record.Id}_{record.Modification}]_Deleted";                
-                await db.SaveChangesAsync();
-                return Results.Ok();
+                var updatedItem = await repo.UpdateAsync(updaterecord, id);
+                return (updatedItem is null) ? Results.NotFound() : Results.NoContent();
             });
+
+            app.MapDelete("/api/divisa/{id}", async (IDivisa repo, int id) =>
+            {
+                var item = await repo.DeleteAsync(id);
+                return (item is null) ? Results.NotFound() : Results.Ok();
+            });
+
         }
     }
 }

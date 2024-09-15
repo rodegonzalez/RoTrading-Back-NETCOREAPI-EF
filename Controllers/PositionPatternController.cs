@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using GeneralStore.Models;
+using GeneralStore.Interfaces;
 
 namespace GeneralStore.Controllers
 {
@@ -8,63 +9,34 @@ namespace GeneralStore.Controllers
         public static void MapEndpoints_PositionPatterns(this WebApplication app)
         {
             // Paterns ---------------------------------------------------------------------------------------------------------
+            // Common patterns: Giro, Cont, Fac 
             app.MapGet("/api/position_patterns", async (Db db) => await db.Position_patterns
                                                                 .Where(a => a.Deleted == 0 && a.Active == 1)
                                                                 .ToListAsync());
 
             // High Patterns ----------------------------------------------------------------------------------------------------
-            app.MapGet("/api/position_highpatterns", async (Db db) => await db.Position_highpatterns
-                                                                .Where(a => a.Deleted == 0 && a.Active == 1)
-                                                                .ToListAsync());
+            // User custom patterns
+            app.MapGet("/api/position_highpatterns", async (IPositionHighPattern repo) => await repo.GetAllAsync());
 
 
-            app.MapGet("/api/position_highpattern/{id}", async (Db db, int id) => await db.Position_highpatterns
-                                                                  .Where(a => a.Id == id && a.Deleted == 0)
-                                                                  //.FirstOrDefaultAsync());    
-                                                                  .Take(1)
-                                                                  .ToListAsync());
+            app.MapGet("/api/position_highpattern/{id}", async (IPositionHighPattern repo, int id) => await repo.GetAsync(id));
 
-            app.MapPost("/api/position_highpattern", async (Db db, Position_highpattern record) =>
+            app.MapPost("/api/position_highpattern", async (IPositionHighPattern repo, Position_highpattern record) =>
             {
-                record.Creation = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                record.Modification = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                record.Active = 1;
-                record.Deleted = 0;
-                await db.Position_highpatterns.AddAsync(record);
-                await db.SaveChangesAsync();
-                return Results.Created($"/record/{record.Id}", record);
+                var newItem = await repo.CreateAsync(record);
+                return (newItem is null) ? Results.NotFound() : Results.Created($"/record/{newItem.Id}", newItem);
             });
-            app.MapPut("/api/position_highpattern/{id}", async (Db db, Position_highpattern updaterecord, int id) =>
+
+            app.MapPut("/api/position_highpattern/{id}", async (IPositionHighPattern repo, Position_highpattern updaterecord, int id) =>
             {
-                var record = await db.Position_highpatterns
-                                            .Where(a => a.Id == id && a.Deleted == 0)
-                                            .FirstOrDefaultAsync();
-                if (record is null) return Results.NotFound();
-
-                record.Name = updaterecord.Name;
-                record.Description = updaterecord.Description;
-                record.Status = updaterecord.Status;
-                record.Active = updaterecord.Active;
-                record.Note = updaterecord.Note;
-
-                record.Modification = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                await db.SaveChangesAsync();
-                return Results.NoContent();
+                var updatedItem = await repo.UpdateAsync(updaterecord, id);
+                return (updatedItem is null) ? Results.NotFound() : Results.NoContent();
             });
-            app.MapDelete("/api/position_highpattern/{id}", async (Db db, int id) =>
+
+            app.MapDelete("/api/position_highpattern/{id}", async (IPositionHighPattern repo, int id) =>
             {
-                var record = await db.Position_highpatterns
-                                    .Where(a => a.Id == id && a.Deleted == 0)
-                                    .FirstOrDefaultAsync();
-                if (record is null)
-                {
-                    return Results.NotFound();
-                }
-                record.Deleted = 1;
-                record.Modification = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                record.Name = $"{record.Name}_[{record.Id}_{record.Modification}]_Deleted";
-                await db.SaveChangesAsync();
-                return Results.Ok();
+                var item = await repo.DeleteAsync(id);
+                return (item is null) ? Results.NotFound() : Results.Ok();
             });
 
 
