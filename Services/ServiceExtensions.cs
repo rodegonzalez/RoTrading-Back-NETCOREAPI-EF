@@ -1,6 +1,5 @@
 ﻿using GeneralStore.Interfaces;
 using GeneralStore.Repositories;
-using GeneralStore.Services;
 using GeneralStore.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -15,7 +14,7 @@ namespace GeneralStore.Extensions
         {           
             // Repositories
             services.AddScoped<IPosition, PositionRepository>();
-            //services.AddScoped<IPositionsSession, PositionsSessionRepository>();
+            services.AddScoped<Interfaces.ISession, SessionRepository>();
             services.AddScoped<IAccount,AccountRepository>();
 
             // Swagger

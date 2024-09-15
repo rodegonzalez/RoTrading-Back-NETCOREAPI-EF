@@ -1,5 +1,4 @@
 using GeneralStore.Interfaces;
-using GeneralStore.Services;
 using GeneralStore.Models;
 
 namespace GeneralStore.Controllers

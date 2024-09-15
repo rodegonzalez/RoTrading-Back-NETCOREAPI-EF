@@ -2,7 +2,6 @@ using GeneralStore.Controllers;
 using GeneralStore.Extensions;
 using GeneralStore.Repositories;
 using GeneralStore.Interfaces;
-using GeneralStore.Services;
 using GeneralStore.Models;
 
 try
