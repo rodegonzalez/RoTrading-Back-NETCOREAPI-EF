@@ -4,7 +4,7 @@ using GeneralStore.Interfaces;
 
 namespace GeneralStore.Repositories
 {
-public class ItemRepository : IItemRepository
+public class ItemRepository : _Test_IItemRepository
 {
     private Db _context;
 

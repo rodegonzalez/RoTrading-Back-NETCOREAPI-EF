@@ -2,7 +2,7 @@ using GeneralStore.Models;
 
 namespace GeneralStore.Interfaces 
 {
-public interface IItemRepository
+public interface _Test_IItemRepository
 {
     public Task<List<Item>> GetAllItemsAsync();
     public Task<Item> GetItemByIdAsync(int id);
