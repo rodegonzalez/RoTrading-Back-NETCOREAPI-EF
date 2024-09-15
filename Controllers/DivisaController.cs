@@ -1,6 +1,4 @@
-using Microsoft.EntityFrameworkCore;
 using GeneralStore.Models;
-using System.Diagnostics.Eventing.Reader;
 using GeneralStore.Interfaces;
 
 namespace GeneralStore.Controllers

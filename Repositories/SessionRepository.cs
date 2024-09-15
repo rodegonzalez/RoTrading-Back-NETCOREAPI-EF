@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using GeneralStore.Models;
-using GeneralStore.Interfaces;
 using GeneralStore.Common;
 
 namespace GeneralStore.Repositories

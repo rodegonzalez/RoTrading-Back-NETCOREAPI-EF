@@ -1,6 +1,4 @@
-using Microsoft.EntityFrameworkCore;
 using GeneralStore.Models;
-using  GeneralStore.Repositories;
 using GeneralStore.Interfaces;
 
 namespace GeneralStore.Controllers

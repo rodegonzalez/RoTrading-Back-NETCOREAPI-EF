@@ -1,10 +1,6 @@
 ﻿using GeneralStore.Interfaces;
 using GeneralStore.Repositories;
-using GeneralStore.Models;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using Microsoft.Extensions.DependencyInjection;
-using System;
 
 namespace GeneralStore.Extensions
 {

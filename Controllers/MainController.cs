@@ -1,6 +1,3 @@
-using GeneralStore.Controllers;
-using GeneralStore.Interfaces;
-
 namespace GeneralStore.Controllers
 {
     public static class MainController

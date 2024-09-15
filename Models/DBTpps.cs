@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Identity;
-
 namespace GeneralStore.Models 
 {
     public class Tpp

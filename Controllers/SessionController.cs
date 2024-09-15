@@ -1,7 +1,4 @@
-using Microsoft.EntityFrameworkCore;
 using GeneralStore.Models;
-using System.Linq;
-using GeneralStore.Interfaces;
 
 namespace GeneralStore.Controllers
 {
