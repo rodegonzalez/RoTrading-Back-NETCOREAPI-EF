@@ -16,6 +16,7 @@ namespace GeneralStore.Extensions
             services.AddScoped<IPosition, PositionRepository>();
             services.AddScoped<Interfaces.ISession, SessionRepository>();
             services.AddScoped<IAccount,AccountRepository>();
+            services.AddScoped<ITicker, TickerRepository>();
 
             // Swagger
             services.AddEndpointsApiExplorer();

@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using GeneralStore.Models;
 using  GeneralStore.Repositories;
+using GeneralStore.Interfaces;
 
 namespace GeneralStore.Controllers
 {
@@ -8,57 +9,28 @@ namespace GeneralStore.Controllers
     {
         public static void MapEndpoints_Tickers(this WebApplication app)
         {
-            app.MapGet("/api/tickers", async (Db db) => await db.Tickers
-                                                                .Where(a => a.Deleted == 0)
-                                                                .ToListAsync());
+            app.MapGet("/api/tickers", async (ITicker repo) => await repo.GetAllAsync());
 
-            app.MapGet("/api/ticker/{id}", async (Db db, int id) => await db.Tickers
-                                                                            .Where(a => a.Id == id && a.Deleted == 0)
-                                                                          //.FirstOrDefaultAsync());    
-                                                                          .Take(1)
-                                                                          .ToListAsync());
+            app.MapGet("/api/ticker/{id}", async (ITicker repo, int id) => await repo.GetAsync(id));
 
-            app.MapPost("/api/ticker", async (Db db, Ticker record) =>
+            app.MapPost("/api/ticker", async (ITicker repo, Ticker record) =>
             {
-                record.Creation = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                record.Modification = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                record.Active = 1;
-                record.Deleted = 0;
-                await db.Tickers.AddAsync(record);
-                await db.SaveChangesAsync();
-                return Results.Created($"/record/{record.Id}", record);
+                var newItem = await repo.CreateAsync(record);
+                return (newItem is null) ? Results.NotFound() : Results.Created($"/record/{newItem.Id}", newItem);
             });
-            app.MapPut("/api/ticker/{id}", async (Db db, Ticker updaterecord, int id) =>
-            {
-                var record = await db.Tickers
-                                            .Where(a => a.Id == id && a.Deleted == 0)
-                                            .FirstOrDefaultAsync();
-                if (record is null) return Results.NotFound();
 
-                record.Name = updaterecord.Name;
-                record.Description = updaterecord.Description;
-                record.Status = updaterecord.Status;
-                record.Active = updaterecord.Active;
-                record.Note = updaterecord.Note;
-                record.Modification = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
-
-                await db.SaveChangesAsync();
-                return Results.NoContent();
-            });
-            app.MapDelete("/api/ticker/{id}", async (Db db, int id) =>
+            app.MapPut("/api/ticker/{id}", async (ITicker repo, Ticker updaterecord, int id) =>
             {
-                var record = await db.Tickers
-                                    .Where(a => a.Id == id && a.Deleted == 0)
-                                    .FirstOrDefaultAsync();
-                if (record is null)
-                {
-                    return Results.NotFound();
-                }
-                record.Deleted = 1;
-                record.Modification = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
-                await db.SaveChangesAsync();
-                return Results.Ok();
+                var updatedItem = await repo.UpdateAsync(updaterecord, id);
+                return (updatedItem is null) ? Results.NotFound() : Results.NoContent();
             });
+
+            app.MapDelete("/api/ticker/{id}", async (ITicker repo, int id) =>
+            {
+                var item = await repo.DeleteAsync(id);
+                return (item is null) ? Results.NotFound() : Results.Ok();
+            });
+
         }
     }
 }
