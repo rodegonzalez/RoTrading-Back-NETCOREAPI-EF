@@ -7,7 +7,7 @@ try
     var builder = WebApplication.CreateBuilder(args);
 
     // Db
-    var connectionString = builder.Configuration.GetConnectionString("rotrading") ?? "Data Source=../rotrading.db";
+    var connectionString = builder.Configuration.GetConnectionString("sqlitedb") ?? "Data Source=../rotrading.db";
     builder.Services.AddSqlite<Db>(connectionString);    
     //services.AddDbContext<Db>(options => options.UseSqlite("Data Source=../rotrading.db"));
 
@@ -25,7 +25,14 @@ try
 
     app.UseCors("AllowSpecificOrigin_localhost"); // CORS policy to use
     app.MapAllEndpoints(); // API Endpoints
-    app.Urls.Add("http://localhost:5100"); // Start on port 5000
+
+    // Url and port configuration
+    var kestrelConfig = builder.Configuration.GetSection("Kestrel:Endpoints:Http:Url").Value;
+    if (!string.IsNullOrEmpty(kestrelConfig))
+    {
+        app.Urls.Add(kestrelConfig);
+    }
+    
     app.Run();
 
 }
