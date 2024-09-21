@@ -23,16 +23,20 @@ try
         app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
     }
 
-    app.UseCors("AllowSpecificOrigin_localhost"); // CORS policy to use
-    app.MapAllEndpoints(); // API Endpoints
+    // CORS policy
+    app.UseCors("AllowSpecificOrigin_localhost");
 
-    // Url and port configuration
+    // API Endpoints
+    app.MapAllEndpoints(); 
+
+    // Listen on url and port 
     var kestrelConfig = builder.Configuration.GetSection("Kestrel:Endpoints:Http:Url").Value;
     if (!string.IsNullOrEmpty(kestrelConfig))
     {
         app.Urls.Add(kestrelConfig);
     }
-    
+
+    // Run the app
     app.Run();
 
 }

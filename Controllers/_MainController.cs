@@ -13,7 +13,8 @@ namespace GeneralStore.Controllers
            app.MapEndpoints_Tickers();
            app.MapEndpoints_Tickeraccounts();            
            app.MapEndpoints_Divisas();
-           app.MapEndpoints_Sessions();            
+           app.MapEndpoints_Sessions();
+           app.MapEndpoints_Reports();
         }
     }
 }

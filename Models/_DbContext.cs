@@ -18,6 +18,7 @@ namespace GeneralStore.Models
         public DbSet<Tppblock> TppBlocks { get; set; }
         public DbSet<Tppblocksecuence> TppBlockSecuences { get; set; }
         public DbSet<Session> Sessions { get; set; } = null!;
+        public DbSet<DataTable> Reports { get; set; } = null!;
 
         public DbSet<PositionView> PositionViews { get; set; } = null!;
         protected override void OnModelCreating(ModelBuilder modelBuilder)

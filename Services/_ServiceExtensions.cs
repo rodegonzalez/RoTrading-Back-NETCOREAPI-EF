@@ -17,6 +17,7 @@ namespace GeneralStore.Extensions
             services.AddScoped<IDivisa, DivisaRepository>();
             services.AddScoped<IPositionSetup, PositionSetupRepository>();
             services.AddScoped<IPositionHighPattern, PositionHighPatternRepository>();
+            services.AddScoped<IDataTable, ReportRepository>();
 
             // Swagger
             services.AddEndpointsApiExplorer();

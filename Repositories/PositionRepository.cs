@@ -16,7 +16,7 @@ namespace GeneralStore.Repositories
 
         public async Task<List<PositionView>> GetAllAsync()
         {
-            return await _context.PositionViews.Where(a => a.Deleted == 0).Take(100).ToListAsync();
+            return await _context.PositionViews.Where(a => a.Deleted == 0).ToListAsync();
         }
 
         public async Task<List<PositionView>> GetOpenedPositionsAsync()
