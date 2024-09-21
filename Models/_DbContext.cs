@@ -18,13 +18,17 @@ namespace GeneralStore.Models
         public DbSet<Tppblock> TppBlocks { get; set; }
         public DbSet<Tppblocksecuence> TppBlockSecuences { get; set; }
         public DbSet<Session> Sessions { get; set; } = null!;
-        public DbSet<DataTable> Reports { get; set; } = null!;
+        public DbSet<PositionView> Reports { get; set; } = null!;
 
         public DbSet<PositionView> PositionViews { get; set; } = null!;
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Views
             modelBuilder.Entity<PositionView>().HasNoKey().ToView("view_positions");
+
+            modelBuilder.Entity<DataTable>().HasNoKey();
+            modelBuilder.Entity<DataTable>().Ignore(d => d.tableColumns);
+            modelBuilder.Entity<DataTable>().Ignore(d => d.tableData);
 
             // MM tables with complex primary keys
             modelBuilder.Entity<Tickeraccount>().HasKey(ta => new { ta.Tickerid, ta.Accountid });
