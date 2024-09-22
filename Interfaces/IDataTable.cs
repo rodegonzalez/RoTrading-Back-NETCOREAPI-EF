@@ -7,6 +7,5 @@ namespace GeneralStore.Interfaces
         DataTable? GetTest(); 
         Task<DataTable?> GetPositionsAsync();
         Task<DataTable?> GetPositionsSearchAsync(string? searchOptions);
-        //Task<DataTable?> GetPositionsSearchAsync(SearchOptions? searchOptions);
     }
 }

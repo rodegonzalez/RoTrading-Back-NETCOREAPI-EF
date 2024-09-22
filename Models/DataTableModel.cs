@@ -12,12 +12,6 @@ namespace GeneralStore.Models
 
     }
 
-    public class JsonRequest
-    {
-        // Contenedor de opciones
-        public string? Options { get; set; }
-    }
-
     // Opciones dentro del contenedor
     public class SearchOptions
     {
@@ -28,9 +22,5 @@ namespace GeneralStore.Models
         public string? Pattern1id { get; set; }
         public int? Setup2id { get; set; }
         public string? Buysell { get; set; }
-
-
     }
-
-
 }

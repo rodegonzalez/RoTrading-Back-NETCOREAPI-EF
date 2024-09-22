@@ -88,10 +88,6 @@ namespace GeneralStore.Repositories
             }
         }
 
-        /*
-         * str = xml with the search to get 
-         */
-        //public async Task<DataTable?> GetPositionsSearchAsync(SearchOptions searchOptions)
         public async Task<DataTable?> GetPositionsSearchAsync(string? _searchOptions)
         {
             try
@@ -153,41 +149,6 @@ namespace GeneralStore.Repositories
                 Console.WriteLine($"Error: {ex.Message}");
                 return null;
             }
-        }
-
-        private string processSearch(string str)
-        {
-            return str;
-
-            // Crear un diccionario para almacenar los pares nombre:valor
-            var options = new Dictionary<string, string>();
-
-            // Cargar el XML en un objeto XmlDocument
-            var xmlDoc = new System.Xml.XmlDocument();
-            xmlDoc.LoadXml(str);
-
-            // Extraer los pares nombre:valor del XML
-            foreach (System.Xml.XmlNode node in xmlDoc.DocumentElement.ChildNodes)
-            {
-                if (node is System.Xml.XmlElement element)
-                {
-                    string name = element.Name;
-                    string value = element.InnerText;
-                    options[name] = value;
-                }
-            }
-
-            // Procesar los pares nombre:valor (aquí puedes agregar tu lógica de procesamiento)
-            var processedOptions = options.Select(kv => new
-            {
-                Key = kv.Key,
-                Value = kv.Value
-            }).ToArray();
-            //return processedOptions;
-
-            // Convertir el array de objetos procesados a JSON
-            string? jsonOptions = JsonSerializer.Serialize(processedOptions);
-            return jsonOptions;
         }
 
     } // end class
