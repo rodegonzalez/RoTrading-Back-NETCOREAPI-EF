@@ -91,14 +91,14 @@ namespace GeneralStore.Repositories
         /*
          * str = xml with the search to get 
          */
-        public async Task<DataTable?> GetPositionsSearchAsync(SearchOptions searchOptions)
-        //public async Task<DataTable?> GetPositionsSearchAsync(string? options)
+        //public async Task<DataTable?> GetPositionsSearchAsync(SearchOptions searchOptions)
+        public async Task<DataTable?> GetPositionsSearchAsync(string? _searchOptions)
         {
             try
             {
-                //if (options == null) return null;
+                if (_searchOptions == null) return null;
 
-                //var searchOptions = JsonSerializer.Deserialize<SearchOptions>(options);
+                var searchOptions = JsonSerializer.Deserialize<SearchOptions>(_searchOptions);
 
                 var query = _context.PositionViews.AsQueryable();
                 if (searchOptions.Temporality != null)

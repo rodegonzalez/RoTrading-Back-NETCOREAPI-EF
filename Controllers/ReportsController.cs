@@ -12,13 +12,16 @@ namespace GeneralStore.Controllers
             app.MapGet("/api/reports/getPositions", async (IDataTable repo) => await repo.GetPositionsAsync());
 
             //app.MapGet("/api/reports/getPositionsSearch", async (IDataTable repo) => await repo.GetPositionsSearchAsync("str"));
-            //app.MapGet("/api/reports/getPositionsSearch", async (IDataTable repo) => await repo.GetPositionsSearchAsync(searchOptions));
+            //app.MapGet("/api/reports/getPositionsSearch", async (IDataTable repo, [FromQuery] string searchOptions) => await repo.GetPositionsSearchAsync(searchOptions));
+            app.MapPost("/api/reports/getPositionsSearch", async (IDataTable repo, [FromQuery] string options) => await repo.GetPositionsSearchAsync(options));
             //app.MapPost("/api/reports/getPositionsSearch", async (IDataTable repo, string? searchOptions) =>
-            app.MapPost("/api/reports/getPositionsSearch", async (IDataTable repo, SearchOptions? searchOptions) =>
-            {
-                var response = await repo.GetPositionsSearchAsync(searchOptions);
-                return response;
-            });
+            //app.MapPost("/api/reports/getPositionsSearch", async (IDataTable repo, SearchOptions? searchOptions) =>
+            ////app.MapPost("/api/reports/getPositionsSearch", async (IDataTable repo, [FromBody] JsonRequest request) =>
+            //{
+            //    //var response = await repo.GetPositionsSearchAsync(searchOptions);
+            //    var response = await repo.GetPositionsSearchAsync(request.Options);
+            //    return response;
+            //});
 
         }
     }
