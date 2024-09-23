@@ -15,11 +15,12 @@ namespace GeneralStore.Models
     // Opciones dentro del contenedor
     public class SearchOptions
     {
-        public string? Datemin { get; set; }
-        public string? Datemax { get; set; }
-        public string? Dateyear { get; set; }
-        public string? Temporality { get; set; }
-        public string? Pattern1id { get; set; }
+        public string? Sessionid { get; set; }
+        public int? Accountid { get; set; }
+        public int? Tickerid { get; set; }
+        public int? Pattern1id { get; set; }
+        public string? Pattern2id { get; set; }
+        public string? Setup1id { get; set; }
         public int? Setup2id { get; set; }
         public string? Buysell { get; set; }
     }
