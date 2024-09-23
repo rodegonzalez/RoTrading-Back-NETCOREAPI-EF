@@ -9,6 +9,23 @@ namespace GeneralStore.Models
 
         [NotMapped]
         public object[]? tableData { get; set; }
+        [NotMapped]
+        public object? summarize { get; set; }
+
+    }
+
+    public class Summarize
+    {
+        [NotMapped]
+        public object? positionsData_operations { get; set; }
+
+        [NotMapped]
+        public object? positionsData_blocks { get; set; }
+
+        [NotMapped]
+        public object? positionsData_ticks { get; set; }
+        [NotMapped]
+        public object? positionsData_posneg { get; set; }
 
     }
 

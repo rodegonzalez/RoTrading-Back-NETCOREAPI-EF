@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using GeneralStore.Repositories;
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore.Query;
+using System.Text.Json.Nodes;
 
 namespace GeneralStore.Repositories
 {
@@ -93,8 +94,8 @@ namespace GeneralStore.Repositories
         {
             try
             {
-                if (_searchOptions is null) return null;   
-                
+                if (_searchOptions is null) return null;
+
                 var query = this.prepareQuery(_searchOptions);
                 var positions = await query.ToListAsync();
 
@@ -118,18 +119,49 @@ namespace GeneralStore.Repositories
                     sessionid = p.Sessionid,
                     account = p.Account,
                     ticker = p.Ticker,
-                    tpp = p.Tpp + "[" + p.Tppblocksec + "-" +  p.Sec +"]",
+                    tpp = p.Tpp + "[" + p.Tppblocksec + "-" + p.Sec + "]",
                     buysell = p.Buysell,
-                    hpattern = p.Pattern ,
+                    hpattern = p.Pattern,
                     pattern = p.Pattern2id,
-                    setup = p.Setup1id + ": " + p.Setup ,
+                    setup = p.Setup1id + ": " + p.Setup,
                     button = $"<button id='button{p.Id}' class='btn btn-success' (click)='verID({p.Id})'>Ver</button>",
                 }).ToArray();
 
+                // -------------------- 
+                // sumarize
+                object _summarize = new 
+                {            
+                        
+                        positionsData_operations = new
+                        {
+                            ChartLabels = new List<string> { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20" },
+                            ChartData = new List<int> { 65, 59, -28, -32, 81, 65, 59, -18, 91, 5, -15, -22, -18, 91, 5, 65, -20, -18, -20, 81}
+                        },
+                        positionsData_blocks = new
+                        {
+                            ChartLabels = new List<string>{"1", "2", "3", "4", "5", "6", "7" },
+                            ChartData = new List<int> { 65, 59, 80, 81, 56, 55, 40 }
+                        },
+                        positionsData_ticks = new
+                        {
+                            ChartLabels = new List<string> { "Ganadoras", "Perdedoras", "BreakEven" },
+                            ChartData = new List<int> { 40, 155, 10 }
+                        },
+                        positionsData_posneg = new
+                        {
+                            ChartLabels = new List<string> { "Ganadoras", "Perdedoras", "BreakEven" },
+                            ChartData = new List<int> { 5600, -250, 20 }
+                        }
+
+                };
+
+
+                // return structures
                 DataTable _datatable = new DataTable()
                 {
                     tableColumns = tableColumns.ToArray(),
-                    tableData = tableData.ToArray()
+                    tableData = tableData.ToArray(),
+                    summarize = _summarize
                 };
 
                 return _datatable;
@@ -140,6 +172,7 @@ namespace GeneralStore.Repositories
                 Console.WriteLine($"Error: {ex.Message}");
                 return null;
             }
+        
         }
         private IQueryable<PositionView> prepareQuery(string? _searchOptions)
         {
