@@ -11,9 +11,9 @@ namespace GeneralStore.Models
         public object[]? tableData { get; set; }
         [NotMapped]
         public object? summarize { get; set; }
-
     }
 
+    /*
     public class Summarize
     {
         [NotMapped]
@@ -28,8 +28,9 @@ namespace GeneralStore.Models
         public object? positionsData_posneg { get; set; }
 
     }
+    */
 
-    // Opciones dentro del contenedor
+    // Opciones dentro del form del buscador
     public class SearchOptions
     {
         public string? Sessionid { get; set; }

@@ -96,9 +96,11 @@ namespace GeneralStore.Repositories
             {
                 if (_searchOptions is null) return null;
 
+                // query
                 var query = this.prepareQuery(_searchOptions);
                 var positions = await query.ToListAsync();
 
+                // create structures
                 var tableColumns = new List<object>
                 {
                     new { title = "Id", data = "id" },
@@ -127,39 +129,9 @@ namespace GeneralStore.Repositories
                     button = $"<button id='button{p.Id}' class='btn btn-success' (click)='verID({p.Id})'>Ver</button>",
                 }).ToArray();
 
-                // -------------------- 
-                // sumarize
-                /*
-                object _summarize = new 
-                {            
-                        
-                        positionsData_operations = new
-                        {
-                            ChartLabels = new List<string> { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25" },
-                            ChartData = new List<int> { 65, 59, -28, -32, 81, 65, 59, -18, 91, 5, -15, -22, -18, 91, 5, 65, -20, -18, -20, 81, 65, -20, -18, -20, 81 }
-                        },
-                        positionsData_blocks = new
-                        {
-                            ChartLabels = new List<string>{"1", "2", "3", "4", "5", "6", "7" },
-                            ChartData = new List<int> { 65, 59, 80, 81, 56, 55, 40 }
-                        },
-                        positionsData_ticks = new
-                        {
-                            ChartLabels = new List<string> { "Ganadoras", "Perdedoras", "BreakEven" },
-                            ChartData = new List<int> { 40, 155, 10 }
-                        },
-                        positionsData_posneg = new
-                        {
-                            ChartLabels = new List<string> { "Ganadoras", "Perdedoras", "BreakEven" },
-                            ChartData = new List<int> { 5600, -1250, 250 }
-                        }
-
-                };
-                */               
+                // sumarize            
                 var chartLabels = positions.Select(p => p.Id.ToString()).ToList();
                 var chartData = positions.Select(p => p.Opresultticks ?? 0).ToList();
-
-                // Crear el objeto summarize
                 var _summarize = new
                 {
                     positionsData_operations = new
@@ -168,8 +140,6 @@ namespace GeneralStore.Repositories
                         chartData = chartData
                     }
                 };
-
-
 
                 // return structures
                 DataTable _datatable = new DataTable()
@@ -234,8 +204,6 @@ namespace GeneralStore.Repositories
 
             return query;
         }
-
-
 
     } // end class
 } // end namespace
