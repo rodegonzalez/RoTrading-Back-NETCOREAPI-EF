@@ -129,13 +129,14 @@ namespace GeneralStore.Repositories
 
                 // -------------------- 
                 // sumarize
+                /*
                 object _summarize = new 
                 {            
                         
                         positionsData_operations = new
                         {
-                            ChartLabels = new List<string> { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20" },
-                            ChartData = new List<int> { 65, 59, -28, -32, 81, 65, 59, -18, 91, 5, -15, -22, -18, 91, 5, 65, -20, -18, -20, 81}
+                            ChartLabels = new List<string> { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25" },
+                            ChartData = new List<int> { 65, 59, -28, -32, 81, 65, 59, -18, 91, 5, -15, -22, -18, 91, 5, 65, -20, -18, -20, 81, 65, -20, -18, -20, 81 }
                         },
                         positionsData_blocks = new
                         {
@@ -150,10 +151,24 @@ namespace GeneralStore.Repositories
                         positionsData_posneg = new
                         {
                             ChartLabels = new List<string> { "Ganadoras", "Perdedoras", "BreakEven" },
-                            ChartData = new List<int> { 5600, -250, 20 }
+                            ChartData = new List<int> { 5600, -1250, 250 }
                         }
 
                 };
+                */               
+                var chartLabels = positions.Select(p => p.Id.ToString()).ToList();
+                var chartData = positions.Select(p => p.Opresultticks ?? 0).ToList();
+
+                // Crear el objeto summarize
+                var _summarize = new
+                {
+                    positionsData_operations = new
+                    {
+                        chartLabels = chartLabels,
+                        chartData = chartData
+                    }
+                };
+
 
 
                 // return structures
