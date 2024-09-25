@@ -112,6 +112,8 @@ namespace GeneralStore.Repositories
                     new { title = "HPattern", data = "hpattern" },
                     new { title = "Pattern", data = "pattern" },
                     new { title = "Setup", data = "setup" },
+                    new { title = "Commission", data = "commission" },
+                    new { title = "Ticks", data = "ticks" },
                     new { title = "Button", data = "button" },
                 };
 
@@ -126,6 +128,8 @@ namespace GeneralStore.Repositories
                     hpattern = p.Pattern,
                     pattern = p.Pattern2id,
                     setup = p.Setup1id + ": " + p.Setup,
+                    commission = p.Commission,
+                    ticks = p.Opresultticks,
                     button = $"<button id='button{p.Id}' class='btn btn-success' (click)='verID({p.Id})'>Ver</button>",
                 }).ToArray();
 
