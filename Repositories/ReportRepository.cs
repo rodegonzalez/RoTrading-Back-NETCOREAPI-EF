@@ -170,10 +170,31 @@ namespace GeneralStore.Repositories
             //var query = _query;
             var searchOptions = JsonSerializer.Deserialize<SearchOptions>(_searchOptions ?? string.Empty);
 
+            //// sessID from
+            //if (!string.IsNullOrEmpty(searchOptions.Sessionidfrom) && searchOptions.Sessionidfrom != "not-set")
+            //{
+            //    searchOptions.Sessionidfrom = CommonShared.GetMySessionidFormatted(searchOptions.Sessionidfrom);
+
+            //    //query = query.Where(p => p.Sessionid >= searchOptions.Sessionidfrom);
+            //    query = query.Where(p => int.Parse(p.Sessionid) >= int.Parse(searchOptions.Sessionidfrom));
+            //}
+            //// sessID to
+            //if (!string.IsNullOrEmpty(searchOptions.Sessionidto) && searchOptions.Sessionidto != "not-set")
+            //{
+            //    searchOptions.Sessionidto = CommonShared.GetMySessionidFormatted(searchOptions.Sessionidto);
+            //    //query = query.Where(p => p.Sessionid >= searchOptions.Sessionidfrom);
+            //    query = query.Where(p => DateTime.ParseExact(p.Sessionid, CommonShared.GetMySessionidFormat(), null) < DateTime.ParseExact(searchOptions.Sessionidto, CommonShared.GetMySessionidFormat(), null));
+            //}
+
             // buysell
             if (!string.IsNullOrEmpty(searchOptions.Buysell) && searchOptions.Buysell != "not-set")
             {
                 query = query.Where(p => p.Buysell.ToLower() == searchOptions.Buysell.ToLower());
+            }
+            // winloss
+            if (!string.IsNullOrEmpty(searchOptions.WinLoss) && searchOptions.WinLoss != "not-set")
+            {
+                query = (string.Equals(searchOptions.WinLoss.ToLower(), "win")) ? query.Where(p => p.Opresultticks >= 0) : query.Where(p => p.Opresultticks < 0);
             }
             // account and ticker
             if (searchOptions.Accountid > 0)

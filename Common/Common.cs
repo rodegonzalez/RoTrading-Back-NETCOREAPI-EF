@@ -1,4 +1,6 @@
-﻿namespace GeneralStore.Common
+﻿using System.Text.RegularExpressions;
+
+namespace GeneralStore.Common
 {
     public static class CommonShared
     {       
@@ -16,6 +18,20 @@
         {
             return DateTime.Now.ToString("yyyyMMdd");
         }
+
+        public static string GetMySessionidFormat()
+        {
+            return "yyyyMMdd";
+        }
+        // SessionID like yyyymmdd
+        public static string GetMySessionidFormatted(string sessionid)
+        {
+            if (string.IsNullOrEmpty(sessionid))
+                return null;
+
+            return Regex.Replace(sessionid, "[^0-9]", "");
+        }
+
 
         public static string GetMySessionid()
         {

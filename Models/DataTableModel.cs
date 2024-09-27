@@ -34,6 +34,8 @@ namespace GeneralStore.Models
     public class SearchOptions
     {
         public string? Sessionid { get; set; }
+        public string? Sessionidfrom { get; set; }
+        public string? Sessionidto { get; set; }
         public int? Accountid { get; set; }
         public int? Tickerid { get; set; }
         public int? Pattern1id { get; set; }
@@ -41,5 +43,6 @@ namespace GeneralStore.Models
         public string? Setup1id { get; set; }
         public int? Setup2id { get; set; }
         public string? Buysell { get; set; }
+        public string? WinLoss { get; set; }
     }
 }
