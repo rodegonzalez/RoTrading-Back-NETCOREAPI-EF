@@ -71,7 +71,7 @@ namespace GeneralStore.Repositories
                     pattern = p.Pattern,
                     temporality = p.Setup1id,
                     setup = p.Setup,
-                    button =  $"<button id='button{p.Id}' class='btn btn-success' (click)='verID({p.Id})'>Ver</button>",
+                    button = $"<button id='button{p.Id}' class='btn btn-success'>Ver</button>",
                 }).ToArray();
                 
                 DataTable _datatable = new DataTable()
@@ -130,7 +130,7 @@ namespace GeneralStore.Repositories
                     setup = p.Setup1id + ": " + p.Setup,
                     commission = p.Commission,
                     ticks = p.Opresultticks,
-                    button = $"<button id='button{p.Id}' class='btn btn-success' (click)='verID({p.Id})'>Ver</button>",
+                    button = $"<button id='button{p.Id}' class='btn btn-success'>Ver</button>",
                 }).ToArray();
 
                 // sumarize            
@@ -174,15 +174,15 @@ namespace GeneralStore.Repositories
             //if (!string.IsNullOrEmpty(searchOptions.Sessionidfrom) && searchOptions.Sessionidfrom != "not-set")
             //{
             //    searchOptions.Sessionidfrom = CommonShared.GetMySessionidFormatted(searchOptions.Sessionidfrom);
-
             //    //query = query.Where(p => p.Sessionid >= searchOptions.Sessionidfrom);
             //    query = query.Where(p => int.Parse(p.Sessionid) >= int.Parse(searchOptions.Sessionidfrom));
             //}
+
             //// sessID to
             //if (!string.IsNullOrEmpty(searchOptions.Sessionidto) && searchOptions.Sessionidto != "not-set")
             //{
             //    searchOptions.Sessionidto = CommonShared.GetMySessionidFormatted(searchOptions.Sessionidto);
-            //    //query = query.Where(p => p.Sessionid >= searchOptions.Sessionidfrom);
+            //    //query = query.Where(p => p.Sessionid < searchOptions.Sessionidto);
             //    query = query.Where(p => DateTime.ParseExact(p.Sessionid, CommonShared.GetMySessionidFormat(), null) < DateTime.ParseExact(searchOptions.Sessionidto, CommonShared.GetMySessionidFormat(), null));
             //}
 

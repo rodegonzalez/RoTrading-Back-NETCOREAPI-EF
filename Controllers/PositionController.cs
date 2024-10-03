@@ -20,6 +20,15 @@ namespace GeneralStore.Controllers
 
             app.MapPut("/api/position/{id}", async (IPosition repo, Position updaterecord, int id) =>
             {
+                updaterecord.Status = "opened";
+                var updatedPosition = await repo.UpdateAsync(updaterecord, id);
+                if (updatedPosition is null) return Results.NotFound();
+                return Results.NoContent();
+            });
+
+            app.MapPut("/api/position-close/{id}", async (IPosition repo, Position updaterecord, int id) =>
+            {
+                updaterecord.Status = "closed";
                 var updatedPosition = await repo.UpdateAsync(updaterecord, id);
                 if (updatedPosition is null) return Results.NotFound();
                 return Results.NoContent();
