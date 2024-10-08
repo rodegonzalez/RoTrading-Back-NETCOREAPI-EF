@@ -18,7 +18,7 @@ namespace GeneralStore.Repositories
             return await _context.Sessions.Where(a => a.Deleted == 0).ToListAsync();
         }
 
-        public async Task<Session?> GetAsync(string id)
+        public async Task<Session?> GetAsync(int id)
         {
             return await _context.Sessions.Where(a => a.Id == id && a.Deleted == 0).FirstOrDefaultAsync();
         }
@@ -27,7 +27,7 @@ namespace GeneralStore.Repositories
             return await _context.Sessions.Where(a => a.Deleted == 0).OrderByDescending(a => a.Id).FirstOrDefaultAsync();
         }
 
-        public async Task<Session> CreateAsync(string id)
+        public async Task<Session> CreateAsync(int id)
         {
             Session? session = await this.GetAsync(id);
             if (session is null)
@@ -52,7 +52,7 @@ namespace GeneralStore.Repositories
             return session;
         }
 
-        public async Task<Session?> UpdateAsync(Session updaterecord, string id)
+        public async Task<Session?> UpdateAsync(Session updaterecord, int id)
         {
             var record = await this.GetAsync(id);
             if (record is null) return null;
@@ -68,7 +68,7 @@ namespace GeneralStore.Repositories
             return record;
         }
 
-        public async Task<Session?> DeleteAsync(string id)
+        public async Task<Session?> DeleteAsync(int id)
         {
             var record = await this.GetAsync(id);
             if (record is null || record.Deleted == 1) return null;

@@ -2,7 +2,7 @@ namespace GeneralStore.Models
 {
     public class Session
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string? Creation { get; set; }
         public string? Modification { get; set; }
         public float? Usdeur { get; set; }
